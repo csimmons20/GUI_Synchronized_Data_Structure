@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="567.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WebChatDisplay">
+   <children>
+      <ListView fx:id="User1Chat" layoutX="26.0" layoutY="22.0" prefHeight="200.0" prefWidth="301.0" />
+      <ListView fx:id="User2Chat" layoutX="26.0" layoutY="298.0" prefHeight="200.0" prefWidth="301.0" />
+      <ImageView fx:id="User1Image" fitHeight="200.0" fitWidth="301.0" layoutX="359.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="User2Image" fitHeight="200.0" fitWidth="301.0" layoutX="357.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="User1Send" layoutX="368.0" layoutY="244.0" mnemonicParsing="false" text="Send" />
+      <Button fx:id="User1File" layoutX="449.0" layoutY="244.0" mnemonicParsing="false" text="Send File" />
+      <Button fx:id="User2File" layoutX="449.0" layoutY="515.0" mnemonicParsing="false" text="Send File" />
+      <Button fx:id="User2Send" layoutX="368.0" layoutY="515.0" mnemonicParsing="false" text="Send" />
+      <TextField fx:id="User1Text" layoutX="26.0" layoutY="244.0" prefHeight="27.0" prefWidth="301.0" promptText="Type Here..." />
+      <TextField fx:id="User2Text" layoutX="26.0" layoutY="515.0" prefHeight="27.0" prefWidth="301.0" />
+   </children>
+</AnchorPane>
