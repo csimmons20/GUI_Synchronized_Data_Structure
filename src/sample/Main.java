@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private TheWebChat newController;
+    private WebChatController newController;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
