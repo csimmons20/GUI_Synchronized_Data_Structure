@@ -15,7 +15,7 @@ public class WebChat extends Application {
         // Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("PictureViewer.fxml"));
         Parent root = loader.load();
-       webChatController = loader.getController();
+        webChatController = loader.getController();
         webChatController.setStage(primaryStage);
 
         Thread.currentThread().setName("PictureView GUI Thread");

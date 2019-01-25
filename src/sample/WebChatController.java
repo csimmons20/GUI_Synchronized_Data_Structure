@@ -3,6 +3,7 @@ package sample;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 
 import javax.swing.text.html.ImageView;
 import javax.swing.text.html.ListView;
@@ -23,6 +24,7 @@ public class WebChatController {
     public Button UserTwoFile;
 
     private SynchronizedQueue TheQueue;
+    private Stage stage;
 
     public void initialize(){
         TheQueue = new SynchronizedQueue();
@@ -30,6 +32,8 @@ public class WebChatController {
         //GUI Updates text, image, and file to either people.
     }
 
-
+    public void setStage(Stage theStage) {
+        stage = theStage;
+    }
 
 }
