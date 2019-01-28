@@ -27,7 +27,6 @@ public class WebChatController {
     public void initialize(){
         TheQueue = new SynchronizedQueue();
 
-        //GUI Updates text, image, and file to either people.
     }
 
     public void OpenFile() {
