@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 public class UpdateGUI implements Runnable {
 
     int allData;
+
     private SynchronizedQueue originalQueue;
     private TextField GUIMessageView;
     private ImageView GUIimageView;
