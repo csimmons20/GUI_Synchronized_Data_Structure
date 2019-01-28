@@ -30,6 +30,23 @@ public class WebChatController {
         //GUI Updates text, image, and file to either people.
     }
 
+    public void OpenFile() {
+      //create a way to make open file and put it into mediaview or imageview, depending if its a image, video, or audio
+    }
+
+    public void SendFile() {
+        //send files
+    }
+
+    public void TexttheText(){
+        //be alloed to text
+    }
+
+    public void SendMessage() {
+        //send message to show in listview
+
+    }
+
 
 
 }
