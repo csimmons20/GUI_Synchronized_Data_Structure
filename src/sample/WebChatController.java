@@ -31,7 +31,8 @@ public class WebChatController {
     }
 
     public void OpenFile() {
-      //create a way to make open file and put it into mediaview or imageview, depending if its a image, video, or audio
+      //
+        //create a way to make open file and put it into mediaview or imageview, depending if its a image, video, or audio
     }
 
     public void SendFile() {
