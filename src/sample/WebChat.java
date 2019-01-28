@@ -8,15 +8,11 @@ import javafx.stage.Stage;
 
 public class WebChat extends Application {
 
-    private WebChatController webChatController;
+    //private WebChatController webChatController;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        // Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("PictureViewer.fxml"));
-        Parent root = loader.load();
-        //webChatController = loader.getController();
-        //webChatController.setStage(primaryStage);
+         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         Thread.currentThread().setName("PictureView GUI Thread");
         // Display the scene

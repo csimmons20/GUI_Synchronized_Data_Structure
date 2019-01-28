@@ -14,17 +14,16 @@
 
 <fx:root prefHeight="567.0" prefWidth="805.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WebChatController">
    <children>
-      <ListView fx:id="UserOneChat" layoutX="26.0" layoutY="22.0" prefHeight="200.0" prefWidth="301.0" />
-      <ListView fx:id="UserTwoChat" layoutX="26.0" layoutY="298.0" prefHeight="200.0" prefWidth="301.0" />
-      <ImageView fx:id="UserOneImage" fitHeight="200.0" fitWidth="200.0" layoutX="360.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="360.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="UserOneSend" layoutX="368.0" layoutY="244.0" mnemonicParsing="false" text="Send" />
-      <Button fx:id="UserOneFile" layoutX="449.0" layoutY="244.0" mnemonicParsing="false" text="Send File" />
-      <Button fx:id="UserTwoFile" layoutX="449.0" layoutY="515.0" mnemonicParsing="false" text="Send File" />
-      <Button fx:id="UserTwoSend" layoutX="368.0" layoutY="515.0" mnemonicParsing="false" text="Send" />
-      <TextField fx:id="UserOneText" layoutX="26.0" layoutY="244.0" prefHeight="27.0" prefWidth="301.0" promptText="Type Here..." />
-      <TextField fx:id="UserTwoText" layoutX="26.0" layoutY="515.0" prefHeight="27.0" prefWidth="301.0" />
-      <MediaView fx:id="UserOneMedia" fitHeight="200.0" fitWidth="200.0" layoutX="580.0" layoutY="22.0" />
-      <MediaView fx:id="UserTwoMedia" fitHeight="200.0" fitWidth="200.0" layoutX="580.0" layoutY="298.0" />
+      <ListView fx:id="TheChat" layoutX="237.0" layoutY="240.0" prefHeight="200.0" prefWidth="331.0" />
+      <ImageView fx:id="UserOneImage" fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="UserOneSend" layoutX="296.0" layoutY="122.0" mnemonicParsing="false" text="Send" />
+      <Button fx:id="UserOneFile" layoutX="439.0" layoutY="122.0" mnemonicParsing="false" text="Send File" />
+      <Button fx:id="UserTwoFile" layoutX="439.0" layoutY="515.0" mnemonicParsing="false" text="Send File" />
+      <Button fx:id="UserTwoSend" layoutX="296.0" layoutY="515.0" mnemonicParsing="false" text="Send" />
+      <TextField fx:id="UserOneText" layoutX="252.0" layoutY="168.0" prefHeight="27.0" prefWidth="301.0" promptText="Type Here..." />
+      <TextField fx:id="UserTwoText" layoutX="252.0" layoutY="472.0" prefHeight="27.0" prefWidth="301.0" promptText="Type Here..." />
+      <MediaView fx:id="UserOneMedia" fitHeight="200.0" fitWidth="200.0" layoutX="591.0" layoutY="14.0" />
+      <MediaView fx:id="UserTwoMedia" fitHeight="200.0" fitWidth="200.0" layoutX="591.0" layoutY="353.0" />
    </children>
 </fx:root>
