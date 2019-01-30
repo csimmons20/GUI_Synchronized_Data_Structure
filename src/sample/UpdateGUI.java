@@ -1,37 +1,35 @@
 package sample;
 
+
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class UpdateGUI implements Runnable {
 
-    int allData;
-
     private SynchronizedQueue originalQueue;
-    private TextField GUIMessageView;
-    private ImageView GUIimageView;
+    private TextField UOneM;
+    private TextField UTwoM;
+    private ListView Chatbox;
 
-    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView) {
+    UpdateGUI(SynchronizedQueue queue, TextField UOM, TextField UTM, ListView CB) {
         originalQueue = queue;
-        GUIMessageView = GUIMessage;
-        GUIimageView = imageView;
+        UOneM = UOM;
+        UTwoM = UTM;
+        Chatbox = CB;
     }
 
     public void run() {
         Thread.currentThread().setName("GUIUpdater Thread");
 
-        while (!Thread.interrupted()) {
-            // Ask queue for a message to open
-            Image next = (Image)originalQueue.get();
+        while (!Thread.interrupted()){
+            //Update Text
+            TheChat.getItems().add(new Label("User 1: " + UserOneText.getText()));
+            TheChat.getItems().add(new Label("User 2: " + UserTwoText.getText()));
+        }
 
-            while (next == null) {
-                Thread.currentThread().yield();
-                next = (Image) originalQueue.get();
-            }
 
-            // FINALLY I have a file to do something with
-            GUIimageView.setImage(next);
+
         }
     }
-}
+

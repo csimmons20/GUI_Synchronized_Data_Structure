@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.ArrayList;
+
 public class SynchronizedQueue {
     private  int PositionGet;
     private int PositionPut;
@@ -58,4 +60,7 @@ public class SynchronizedQueue {
 
     }
 
+    public ArrayList getTheChatTexts() {
+    return null;
+    }
 }
