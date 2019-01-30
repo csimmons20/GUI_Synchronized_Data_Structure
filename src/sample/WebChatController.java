@@ -12,8 +12,6 @@ import java.util.ArrayList;
 public class WebChatController {
 
     public ListView TheChat;
-    public MediaView UserOneMedia;
-    public MediaView UserTwoMedia;
     public ImageView UserOneImage;
     public ImageView UserTwoImage;
     public TextField UserOneText;
@@ -22,6 +20,8 @@ public class WebChatController {
     public Button UserTwoSend;
     public Button UserOneFile;
     public Button UserTwoFile;
+    public MediaView UserOneMedia;
+    public MediaView UserTwoMedia;
 
     private SynchronizedQueue TheQueue;
 
