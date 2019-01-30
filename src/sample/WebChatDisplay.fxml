@@ -16,7 +16,10 @@
 <fx:root prefHeight="567.0" prefWidth="944.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WebChatController">
    <children>
       <ListView fx:id="TheChat" layoutX="240.0" layoutY="89.0" prefHeight="389.0" prefWidth="480.0" />
-      <ImageView fx:id="UserOneImage" fitHeight="200.0" fitWidth="200.0" layoutX="20.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="UserOneImage" fitHeight="200.0" fitWidth="200.0" layoutX="20.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="../../a.jpg" />
+         </image></ImageView>
       <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="730.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="UserOneSend" layoutX="328.0" layoutY="519.0" mnemonicParsing="false" text="Send" />
       <Button fx:id="UserOneFile" layoutX="385.0" layoutY="519.0" mnemonicParsing="false" text="Send File" />
