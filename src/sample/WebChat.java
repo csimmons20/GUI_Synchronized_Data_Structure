@@ -16,8 +16,8 @@ public class WebChat extends Application {
 
         Thread.currentThread().setName("PictureView GUI Thread");
         // Display the scene
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Messenger");
+        primaryStage.setScene(new Scene(root, 944, 567));
         primaryStage.show();
     }
 
