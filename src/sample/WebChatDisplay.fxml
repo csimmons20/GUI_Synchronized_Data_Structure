@@ -13,14 +13,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-<fx:root prefHeight="567.0" prefWidth="944.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WebChatController">
+<AnchorPane prefHeight="567.0" prefWidth="944.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.WebChatController">
    <children>
-      <ListView fx:id="TheChat" layoutX="240.0" layoutY="89.0" prefHeight="389.0" prefWidth="480.0" />
+      <ListView fx:id="TheChat" layoutX="232.0" layoutY="90.0" prefHeight="389.0" prefWidth="480.0" />
       <ImageView fx:id="UserOneImage" fitHeight="200.0" fitWidth="200.0" layoutX="20.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="../../a.jpg" />
+            <Image url="@../ina.jpg" />
          </image></ImageView>
-      <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="730.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="730.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../ina.jpg" />
+         </image></ImageView>
       <Button fx:id="UserOneSend" layoutX="328.0" layoutY="519.0" mnemonicParsing="false" text="Send" />
       <Button fx:id="UserOneFile" layoutX="385.0" layoutY="519.0" mnemonicParsing="false" text="Send File" />
       <Button fx:id="UserTwoFile" layoutX="849.0" layoutY="519.0" mnemonicParsing="false" text="Send File" />
@@ -31,10 +34,10 @@
       <MediaView fx:id="UserTwoMedia" fitHeight="200.0" fitWidth="200.0" layoutX="730.0" layoutY="284.0" />
       <Label layoutX="20.0" layoutY="496.0" text="User One" />
       <Label layoutX="480.0" layoutY="496.0" text="User Two" />
-      <Label layoutX="369.0" layoutY="29.0" text="Messenger">
+      <Label layoutX="389.0" layoutY="30.0" text="Messenger">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
    </children>
-</fx:root>
+</AnchorPane>
