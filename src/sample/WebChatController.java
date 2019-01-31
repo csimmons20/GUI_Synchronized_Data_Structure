@@ -6,7 +6,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaView;
-
 import java.util.ArrayList;
 
 public class WebChatController {
