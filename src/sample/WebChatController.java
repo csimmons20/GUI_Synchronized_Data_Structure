@@ -33,6 +33,10 @@ public class WebChatController {
     public void initialize(){
         TheQueue = new SynchronizedQueue();
 
+        // Create and start the GUI updater thread
+        UpdateGUI updater = new UpdateGUI(TheQueue, UserOneText, UserOneImage);
+        Thread updaterThread = new Thread(updater);
+        updaterThread.start();
 
         //GUI Updates text, image, and file to either people.
     }
@@ -55,6 +59,7 @@ public class WebChatController {
 
     public void SendFile() {
         //send files
+
     }
 
     public void TexttheText(){
