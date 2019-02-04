@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -66,6 +69,13 @@ public class WebChatController {
             }
         }
 
+        String userOneText = UserOneText.getText();
+
+        if (userOneText != null) {
+            while (!TheQueue.put(userOneText)) {
+                Thread.currentThread().yield();
+            }
+        }
     }
 
     public void TexttheText(){
@@ -75,9 +85,11 @@ public class WebChatController {
 
     public void SendMessage() {
         //send message to show in listview
+        System.out.println("SendMessage: " + UserOneText.getText());
 
+        // Update the list view with the text from the bottom text field
+        TheChat.getItems().add(new Label(UserOneText.getText()));
+        // Clear the bottom text field because it has been used.
+        UserOneText.setText("");
     }
-
-
-
 }

@@ -32,6 +32,8 @@ public class UpdateGUI implements Runnable {
 
             // FINALLY I have a file to do something with
             GUIimageView.setImage(next);
+
+
         }
     }
 }

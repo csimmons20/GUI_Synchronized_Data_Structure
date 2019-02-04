@@ -24,7 +24,7 @@
          <image>
             <Image url="@../ina.jpg" />
          </image></ImageView>
-      <Button fx:id="UserOneSend" layoutX="389.0" layoutY="519.0" mnemonicParsing="false" onAction="#SendFile" text="Send" />
+      <Button fx:id="UserOneSend" layoutX="389.0" layoutY="519.0" mnemonicParsing="false" onAction="#SendMessage" text="Send" />
       <Button fx:id="UserOneFile" layoutX="20.0" layoutY="519.0" mnemonicParsing="false" onAction="#OpenFile" text="Open" />
       <Button fx:id="UserTwoFile" layoutX="484.0" layoutY="519.0" mnemonicParsing="false" onAction="#OpenFile" text="Open" />
       <Button fx:id="UserTwoSend" layoutX="858.0" layoutY="519.0" mnemonicParsing="false" onAction="#SendFile" text="Send" />
