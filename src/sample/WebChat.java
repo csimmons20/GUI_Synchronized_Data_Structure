@@ -12,15 +12,15 @@ public class WebChat extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("WebChatDisplay.fxml"));
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("OpenFile.fxml"));
         Parent root = loader.load();
         webChatController = loader.getController();
 
-
         Thread.currentThread().setName("PictureView GUI Thread");
         // Display the scene
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Messenger");
+        primaryStage.setScene(new Scene(root, 944, 567));
         primaryStage.show();
     }
 

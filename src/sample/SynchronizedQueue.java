@@ -34,6 +34,7 @@ public class SynchronizedQueue {
             PositionPut = 0;
         }
 
+        System.out.println("put " + NewData);
         return true;
     }
 
@@ -55,6 +56,7 @@ public class SynchronizedQueue {
         } else {
             PositionGet = 0;
         }
+        System.out.println("get " + AllData[originalPositionGet]);
         return AllData[originalPositionGet];
 
 
