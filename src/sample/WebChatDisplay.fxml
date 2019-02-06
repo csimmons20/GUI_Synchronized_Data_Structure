@@ -24,10 +24,10 @@
          <image>
             <Image url="@../ina.jpg" />
          </image></ImageView>
-      <Button fx:id="UserOneSend" layoutX="389.0" layoutY="519.0" mnemonicParsing="false" onAction="#SendMessage" text="Send" />
+      <Button fx:id="UserOneSend" layoutX="389.0" layoutY="519.0" mnemonicParsing="false" onAction="#Send" text="Send" />
       <Button fx:id="UserOneFile" layoutX="20.0" layoutY="519.0" mnemonicParsing="false" onAction="#OpenFile" text="Open" />
       <Button fx:id="UserTwoFile" layoutX="484.0" layoutY="519.0" mnemonicParsing="false" onAction="#OpenFile" text="Open" />
-      <Button fx:id="UserTwoSend" layoutX="858.0" layoutY="519.0" mnemonicParsing="false" onAction="#SendFile" text="Send" />
+      <Button fx:id="UserTwoSend" layoutX="858.0" layoutY="519.0" mnemonicParsing="false" onAction="#Send" text="Send" />
       <TextField fx:id="UserTwoText" layoutX="539.0" layoutY="519.0" prefHeight="27.0" prefWidth="313.0" promptText="Type Here..." />
       <TextField fx:id="UserOneText" layoutX="74.0" layoutY="519.0" prefHeight="27.0" prefWidth="313.0" promptText="Type Here..." />
       <MediaView fx:id="UserOneMedia" fitHeight="200.0" fitWidth="200.0" layoutX="20.0" layoutY="267.0" />

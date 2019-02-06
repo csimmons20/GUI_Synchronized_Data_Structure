@@ -37,7 +37,7 @@ public class WebChatController {
         TheQueue = new SynchronizedQueue();
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(TheQueue, UserTwoText, UserTwoImage);
+        UpdateGUI updater = new UpdateGUI(TheQueue, UserTwoText, UserTwoImage, TheChat);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
 
@@ -60,7 +60,7 @@ public class WebChatController {
         }
     }
 
-    public void SendFile() {
+    public void Send() {
         Image userOneImg = UserOneImage.getImage();
 
         if (userOneImg != null) {
@@ -68,14 +68,19 @@ public class WebChatController {
                 Thread.currentThread().yield();
             }
         }
+        System.out.println("SendMessage: PUT " + userOneImg);
+
 
         String userOneText = UserOneText.getText();
+        UserOneText.setText("");
 
         if (userOneText != null) {
             while (!TheQueue.put(userOneText)) {
                 Thread.currentThread().yield();
             }
         }
+
+        System.out.println("SendMessage: PUT " + userOneText);
     }
 
     public void TexttheText(){
