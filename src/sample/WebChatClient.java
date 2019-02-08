@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class WebChat extends Application {
+public class WebChatClient extends Application {
 
     private WebChatController webChatController;
 
