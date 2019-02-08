@@ -1,8 +1,5 @@
 package sample;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -38,8 +35,11 @@ public class WebChatController {
 
         // Create and start the GUI updater thread
         UpdateGUI updater = new UpdateGUI(TheQueue, UserTwoText, UserTwoImage, TheChat);
+        UpdateGUI updater2 = new UpdateGUI(TheQueue,UserOneText,UserOneImage,TheChat);
         Thread updaterThread = new Thread(updater);
+        Thread updaterThread2 = new Thread(updater2);
         updaterThread.start();
+        updaterThread2.start();
 
         //GUI Updates text, image, and file to either people.
     }
@@ -53,15 +53,17 @@ public class WebChatController {
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
 
-        // If user chose a file via FileChooser
+        // If user 1 chose a file via FileChooser
         if (file != null) {
             Image newImage = new Image(file.toURI().toString());
             UserOneImage.setImage(newImage);
         }
+
     }
 
     public void Send() {
         Image userOneImg = UserOneImage.getImage();
+        //Image userTwoImg = UserTwoImage.getImage();
 
         if (userOneImg != null) {
             while (!TheQueue.put(userOneImg)) {
@@ -69,6 +71,7 @@ public class WebChatController {
             }
         }
         System.out.println("SendMessage: PUT " + userOneImg);
+
 
 
         String userOneText = UserOneText.getText();
@@ -79,22 +82,31 @@ public class WebChatController {
                 Thread.currentThread().yield();
             }
         }
-
         System.out.println("SendMessage: PUT " + userOneText);
+
+        String userTwoText = UserTwoText.getText();
+        UserTwoText.setText("");
+
+        if (userTwoText != null) {
+            while (!TheQueue.put(userTwoText)) {
+                Thread.currentThread().yield();
+            }
+        }
+        System.out.println("SendMessage: PUT " + userTwoText);
     }
 
-    public void TexttheText(){
-        //Be allowed to text
-
-    }
 
     public void SendMessage() {
-        //send message to show in listview
+        //send message to prgram
         System.out.println("SendMessage: " + UserOneText.getText());
+        System.out.println("SengMessage: " + UserTwoText.getText());
 
         // Update the list view with the text from the bottom text field
         TheChat.getItems().add(new Label(UserOneText.getText()));
+        TheChat.getItems().add(new Label(UserTwoText.getText()));
+
         // Clear the bottom text field because it has been used.
         UserOneText.setText("");
+        UserTwoText.setText("");
     }
 }
