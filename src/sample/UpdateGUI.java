@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -46,24 +47,10 @@ public class UpdateGUI implements Runnable {
                 Thread.currentThread().yield();
                 message = (String) originalQueue.get();
             }
-
-            //System.out.println("UpdateGUI GOT: " + message);
-
-            // Ask queue for a message from user 2 to add to chat
-            String message2 = (String) originalQueue.get();
-
-            while (message2 == null) {
-                Thread.currentThread().yield();
-                message2 = (String) originalQueue.get();
-           }
-
-            //System.out.println("UpdateGUI GOT: " + message2);
+            String finalMessage = message;
 
             // Update the list view with the text from the bottom text field
-            TheChat.getItems().add(new Label("User 1: " + message));
-            TheChat.getItems().add(new Label("User 2: " + message2));
-
-
+            Platform.runLater(() -> TheChat.getItems().add(new Label(finalMessage)));
 
 
         }

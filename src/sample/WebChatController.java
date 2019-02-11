@@ -27,15 +27,17 @@ public class WebChatController {
     public MediaView UserOneMedia;
     public MediaView UserTwoMedia;
 
-    private SynchronizedQueue TheQueue;
+    private SynchronizedQueue QueueFrom1to2;
+    private SynchronizedQueue QueueFrom2to1;
     private Stage stage;
 
     public void initialize(){
-        TheQueue = new SynchronizedQueue();
+        QueueFrom1to2 = new SynchronizedQueue();
+        QueueFrom2to1 = new SynchronizedQueue();
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(TheQueue, UserTwoText, UserTwoImage, TheChat);
-        UpdateGUI updater2 = new UpdateGUI(TheQueue,UserOneText,UserOneImage,TheChat);
+        UpdateGUI updater = new UpdateGUI(QueueFrom1to2, UserTwoText, UserTwoImage, TheChat);
+        UpdateGUI updater2 = new UpdateGUI(QueueFrom2to1,UserOneText,UserOneImage,TheChat);
         Thread updaterThread = new Thread(updater);
         Thread updaterThread2 = new Thread(updater2);
         updaterThread.start();
@@ -66,7 +68,7 @@ public class WebChatController {
         //Image userTwoImg = UserTwoImage.getImage();
 
         if (userOneImg != null) {
-            while (!TheQueue.put(userOneImg)) {
+            while (!QueueFrom1to2.put(userOneImg)) {
                 Thread.currentThread().yield();
             }
         }
@@ -74,11 +76,11 @@ public class WebChatController {
 
 
 
-        String userOneText = UserOneText.getText();
+        String userOneText = "User 1: " + UserOneText.getText();
         UserOneText.setText("");
 
         if (userOneText != null) {
-            while (!TheQueue.put(userOneText)) {
+            while (!QueueFrom1to2.put(userOneText)) {
                 Thread.currentThread().yield();
             }
         }
@@ -90,7 +92,7 @@ public class WebChatController {
         Image userTwoImg = UserTwoImage.getImage();
 
         if (userTwoImg != null) {
-            while (!TheQueue.put(userTwoImg)) {
+            while (!QueueFrom2to1.put(userTwoImg)) {
                 Thread.currentThread().yield();
             }
         }
@@ -98,11 +100,11 @@ public class WebChatController {
 
 
 
-        String userTwoTxt = UserTwoText.getText();
+        String userTwoTxt = "User 2: " + UserTwoText.getText();
         UserTwoText.setText("");
 
         if (userTwoTxt != null) {
-            while (!TheQueue.put(userTwoTxt)) {
+            while (!QueueFrom2to1.put(userTwoTxt)) {
                 Thread.currentThread().yield();
             }
         }
