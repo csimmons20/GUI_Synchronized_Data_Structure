@@ -61,7 +61,7 @@ public class WebChatController {
 
     }
 
-    public void Send() {
+    public void SendUserOne() {
         Image userOneImg = UserOneImage.getImage();
         //Image userTwoImg = UserTwoImage.getImage();
 
@@ -83,30 +83,30 @@ public class WebChatController {
             }
         }
         System.out.println("SendMessage: PUT " + userOneText);
+    }
 
-        String userTwoText = UserTwoText.getText();
-        UserTwoText.setText("");
 
-        if (userTwoText != null) {
-            while (!TheQueue.put(userTwoText)) {
+    public void SendUserTwo() {
+        Image userTwoImg = UserTwoImage.getImage();
+
+        if (userTwoImg != null) {
+            while (!TheQueue.put(userTwoImg)) {
                 Thread.currentThread().yield();
             }
         }
-        System.out.println("SendMessage: PUT " + userTwoText);
-    }
+        System.out.println("SendMessage: PUT " + userTwoImg);
 
 
-    public void SendMessage() {
-        //send message to prgram
-        System.out.println("SendMessage: " + UserOneText.getText());
-        System.out.println("SengMessage: " + UserTwoText.getText());
 
-        // Update the list view with the text from the bottom text field
-        TheChat.getItems().add(new Label(UserOneText.getText()));
-        TheChat.getItems().add(new Label(UserTwoText.getText()));
-
-        // Clear the bottom text field because it has been used.
-        UserOneText.setText("");
+        String userTwoTxt = UserTwoText.getText();
         UserTwoText.setText("");
+
+        if (userTwoTxt != null) {
+            while (!TheQueue.put(userTwoTxt)) {
+                Thread.currentThread().yield();
+            }
+        }
+        System.out.println("SendMessage: PUT " + userTwoTxt);
     }
+
 }

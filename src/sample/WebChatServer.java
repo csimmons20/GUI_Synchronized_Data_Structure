@@ -16,7 +16,7 @@ public class WebChatServer extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load View from xml description
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("TwoWayCommunication.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("WebChatDisplay.fxml"));
         Parent root = loader.load();
 
         Thread.currentThread().setName("TwoWayCommunicationController MainServer GUI Thread");
@@ -30,8 +30,8 @@ public class WebChatServer extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        myController = loader.getController();
-        myController.setServerMode();
+       // myController = loader.getController();
+        //myController.setServerMode();
     }
 
     public static void main(String[] args) {
