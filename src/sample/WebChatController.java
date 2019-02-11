@@ -63,6 +63,19 @@ public class WebChatController {
 
     }
 
+    public void OpenFileTwo() {
+        //create a way to make open file and put it into mediaview or imageview, depending if its a image, video, or audio
+        final FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage);
+
+        // If user 1 chose a file via FileChooser
+        if (file != null) {
+            Image newImage = new Image(file.toURI().toString());
+            UserTwoImage.setImage(newImage);
+        }
+
+    }
+
     public void SendUserOne() {
         Image userOneImg = UserOneImage.getImage();
         //Image userTwoImg = UserTwoImage.getImage();
