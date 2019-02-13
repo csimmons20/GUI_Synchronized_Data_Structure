@@ -13,13 +13,15 @@ public class UpdateGUI implements Runnable {
     private TextField GUIMessageView;
     private ImageView GUIimageView;
     private ListView TheChat;
+    private TextField yourNameText;
 
 
-    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat) {
+    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat, TextField name) {
         originalQueue = queue;
         GUIMessageView = GUIMessage;
         GUIimageView = imageView;
         TheChat = chat;
+        yourNameText = name;
     }
 
     public void run() {
