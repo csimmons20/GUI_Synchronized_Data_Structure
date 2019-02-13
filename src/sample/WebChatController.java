@@ -28,6 +28,7 @@ public class WebChatController {
     public Button UserTwoFile;
     public MediaView UserOneMedia;
     public MediaView UserTwoMedia;
+    public TextField yourNameText;
 
     private SynchronizedQueue QueueFrom1to2;
     private SynchronizedQueue QueueFrom2to1;
@@ -38,12 +39,9 @@ public class WebChatController {
         QueueFrom2to1 = new SynchronizedQueue();
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(QueueFrom1to2, UserTwoText, UserTwoImage, TheChat);
-        UpdateGUI updater2 = new UpdateGUI(QueueFrom2to1,UserOneText,UserOneImage,TheChat);
+        UpdateGUI updater = new UpdateGUI(QueueFrom2to1,UserOneText,UserOneImage,TheChat, yourNameText);
         Thread updaterThread = new Thread(updater);
-        Thread updaterThread2 = new Thread(updater2);
         updaterThread.start();
-        updaterThread2.start();
 
         //GUI Updates text, image, and file to either people.
     }

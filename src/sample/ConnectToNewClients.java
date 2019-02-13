@@ -48,7 +48,7 @@ public class ConnectToNewClients implements Runnable {
             Platform.runLater(() -> statusText.setText("Listening on port " + connectionPort));
             connectionSocket = new ServerSocket(connectionPort);
 
-            while (ClientServerPictureViewerController.connected && !Thread.interrupted()) {
+            while (WebChatController.connected && !Thread.interrupted()) {
                 // Wait until a client tries to connect
                 Socket socketServerSide = connectionSocket.accept();
                 Platform.runLater(() -> statusText.setText("Client has connected!"));
