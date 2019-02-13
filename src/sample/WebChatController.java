@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class WebChatController {
@@ -22,26 +23,50 @@ public class WebChatController {
     public ImageView UserTwoImage;
     public TextField UserOneText;
     public TextField UserTwoText;
+    public TextField yourNameText;
+    public TextField IPAddressText;
+    public TextField portText;
     public Button UserOneSend;
     public Button UserOneFile;
+    public Button startButton;
     public MediaView UserOneMedia;
     public MediaView UserTwoMedia;
-    public TextField yourNameText;
 
-    private SynchronizedQueue QueueFrom1to2;
-    private SynchronizedQueue QueueFrom2to1;
+    private SynchronizedQueue Queue;
     private Stage stage;
 
+    private boolean serverMode;
+    static boolean connected;
+
     public void initialize(){
-        QueueFrom1to2 = new SynchronizedQueue();
-        QueueFrom2to1 = new SynchronizedQueue();
+        Queue = new SynchronizedQueue();
+        connected = false;
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(QueueFrom2to1,UserOneText,UserOneImage,TheChat, yourNameText);
+        UpdateGUI updater = new UpdateGUI(Queue,UserOneText,UserOneImage,TheChat, yourNameText);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
 
         //GUI Updates text, image, and file to either people.
+    }
+
+    void setServerMode() {
+        serverMode = true;
+        startButton.setText("Start");
+        try {
+            // display the computer's IP address
+            IPAddressText.setText(InetAddress.getLocalHost().getHostAddress());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            statusText.setText("Server start: getLocalHost failed. Exiting....");
+        }
+    }
+
+    void setClientMode() {
+        serverMode = false;
+        startButton.setText("Connect");
+        // display the IP address for the local computer
+        IPAddressText.setText("127.0.0.1");
     }
 
     public void setStage(Stage theStage) {
@@ -93,7 +118,7 @@ public class WebChatController {
         Image userOneImg = UserOneImage.getImage();
 
         if (userOneImg != null) {
-            while (!QueueFrom1to2.put(userOneImg)) {
+            while (!Queue.put(userOneImg)) {
                 Thread.currentThread().yield();
             }
         }
@@ -105,7 +130,7 @@ public class WebChatController {
         UserOneText.setText("");
 
         if (userOneText != null) {
-            while (!QueueFrom1to2.put(userOneText)) {
+            while (!Queue.put(userOneText)) {
                 Thread.currentThread().yield();
             }
         }
@@ -117,7 +142,7 @@ public class WebChatController {
         Image userTwoImg = UserTwoImage.getImage();
 
         if (userTwoImg != null) {
-            while (!QueueFrom2to1.put(userTwoImg)) {
+            while (!Queue.put(userTwoImg)) {
                 Thread.currentThread().yield();
             }
         }
@@ -129,7 +154,7 @@ public class WebChatController {
         UserTwoText.setText("");
 
         if (userTwoTxt != null) {
-            while (!QueueFrom2to1.put(userTwoTxt)) {
+            while (!Queue.put(userTwoTxt)) {
                 Thread.currentThread().yield();
             }
         }
