@@ -6,6 +6,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -51,24 +53,39 @@ public class WebChatController {
     }
 
     public void OpenFile() {
-        //create a way to make open file and put it into mediaview or imageview, depending if its a image, video, or audio
+        //Open file and put it into imageview
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
 
-        // If user 1 chose a file via FileChooser
+        // If user chose an image file via FileChooser
         if (file != null) {
             Image newImage = new Image(file.toURI().toString());
             UserOneImage.setImage(newImage);
         }
 
+        //Open file and put it into mediaview
+        final FileChooser fileChooser1 = new FileChooser();
+        File file1 = fileChooser1.showOpenDialog(stage);
+
+        //If user chose a media file via FileChooser
+        if(file1 != null) {
+            Media UOM = new Media(file1.toURI().toString());
+            MediaPlayer UOMP = new MediaPlayer(UOM);
+            UOMP.setAutoPlay(true);
+            UserOneMedia.setMediaPlayer(UOMP);
+
+
+        }
+
+
     }
 
     public void OpenFileTwo() {
-        //create a way to make open file and put it into mediaview or imageview, depending if its a image, video, or audio
+        //create a way to make open file and put it into imageview
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
 
-        // If user 1 chose a file via FileChooser
+        // If user chose an image file via FileChooser
         if (file != null) {
             Image newImage = new Image(file.toURI().toString());
             UserTwoImage.setImage(newImage);
@@ -78,7 +95,6 @@ public class WebChatController {
 
     public void SendUserOne() {
         Image userOneImg = UserOneImage.getImage();
-        //Image userTwoImg = UserTwoImage.getImage();
 
         if (userOneImg != null) {
             while (!QueueFrom1to2.put(userOneImg)) {
