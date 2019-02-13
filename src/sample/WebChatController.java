@@ -23,9 +23,7 @@ public class WebChatController {
     public TextField UserOneText;
     public TextField UserTwoText;
     public Button UserOneSend;
-    public Button UserTwoSend;
     public Button UserOneFile;
-    public Button UserTwoFile;
     public MediaView UserOneMedia;
     public MediaView UserTwoMedia;
     public TextField yourNameText;
