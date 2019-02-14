@@ -27,7 +27,7 @@ public class Message implements Serializable {
         return sender;
     }
 
-    Image data() {
+    Image data2() {
         return data2;
     }
 
