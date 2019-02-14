@@ -53,8 +53,6 @@ public class UpdateGUI implements Runnable {
 
             // Update the list view with the text from the bottom text field
             Platform.runLater(() -> TheChat.getItems().add(new Label(finalMessage)));
-
-
         }
     }
 }

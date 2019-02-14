@@ -41,7 +41,7 @@ public class CommunicationOut implements Runnable {
         System.out.println("CommunicationOut thread running");
 
         try {
-            while (ClientServerPictureViewerController.connected && !Thread.interrupted()) {
+            while (WebChatController.connected && !Thread.interrupted()) {
                 // keep getting from output Queue until it has a message
                 Message message = (Message) outQueue.get();
                 while (message == null) {
@@ -52,7 +52,7 @@ public class CommunicationOut implements Runnable {
                 System.out.println("CommunicationOut GOT: " + message);
 
                 // write message to 1 or many sockets
-                if (serverMode && MainServer.multicastMode) {
+                if (serverMode && WebChatServer.multicastMode) {
                     int clientCount = 0;
                     Iterator<ObjectOutputStream> allClients = outStreams.iterator();
                     while (allClients.hasNext()) {
@@ -79,7 +79,7 @@ public class CommunicationOut implements Runnable {
             System.out.println("CommunicationOut thread DONE; reader and socket closed.");
 
         } catch (Exception ex) {
-            if (ClientServerPictureViewerController.connected) {
+            if (WebChatController.connected) {
                 ex.printStackTrace();
                 Platform.runLater(() -> statusText.setText("CommunicationOut: networking failed. Exiting...."));
             }

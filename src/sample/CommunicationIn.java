@@ -43,7 +43,7 @@ public class CommunicationIn implements Runnable {
 
             // Read all incoming communication
             // dataReader reads objects from 1 socket
-            while (ClientServerPictureViewerController.connected && !Thread.interrupted()) {
+            while (WebChatController.connected && !Thread.interrupted()) {
                 Message message = null;
                 while (message == null) {
                     try {
@@ -71,7 +71,7 @@ public class CommunicationIn implements Runnable {
                     Platform.runLater(() -> statusText.setText("PUT into InputQueue: " + finalMessage));
 
                     // IF SERVER and MULTICAST: also put that incoming message on the OutputQueue so ALL clients see it
-                    if (serverMode && MainServer.multicastMode) {
+                    if (serverMode && WebChatServer.multicastMode) {
                         putSucceeded = outQueue.put(message);
                         while (!putSucceeded) {
                             Thread.currentThread().yield();

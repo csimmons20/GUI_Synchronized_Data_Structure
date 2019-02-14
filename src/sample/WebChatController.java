@@ -155,11 +155,7 @@ public class WebChatController {
             MediaPlayer UOMP = new MediaPlayer(UOM);
             UOMP.setAutoPlay(true);
             UserOneMedia.setMediaPlayer(UOMP);
-
-
         }
-
-
     }
 
     public void OpenFileTwo() {
@@ -172,7 +168,6 @@ public class WebChatController {
             Image newImage = new Image(file.toURI().toString());
             UserTwoImage.setImage(newImage);
         }
-
     }
 
     public void SendUserOne() {
@@ -221,5 +216,4 @@ public class WebChatController {
         }
         System.out.println("SendMessage: PUT " + userTwoTxt);
     }
-
 }

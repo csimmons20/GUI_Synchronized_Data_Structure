@@ -14,7 +14,6 @@ public class SynchronizedQueue {
         AllData = new Object[100];
         PositionGet = 0;
         PositionPut = 0;
-
     }
 
 
@@ -58,10 +57,7 @@ public class SynchronizedQueue {
         }
         System.out.println("get " + AllData[originalPositionGet]);
         return AllData[originalPositionGet];
-
-
     }
-
     public ArrayList getTheChatTexts() {
     return null;
     }

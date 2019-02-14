@@ -29,7 +29,7 @@ public class ConnectToNewClients implements Runnable {
         outQueue = outQ;
         statusText = status;
         yourNameText = name;
-        if (MainServer.multicastMode) {
+        if (WebChatServer.multicastMode) {
             clientOutputStreams = new ArrayList<ObjectOutputStream>();
         }
     }
@@ -65,7 +65,7 @@ public class ConnectToNewClients implements Runnable {
                 //   Thread 1: handles communication TO that client FROM server
                 //   if multi-cast is enabled, communicationOut sends data TO ALL clients FROM server
                 CommunicationOut communicationOut;
-                if (MainServer.multicastMode) {
+                if (WebChatServer.multicastMode) {
                     // collect all output streams to clients, so that server can multicast to all clients
                     clientOutputStreams.add(dataWriter);
                     communicationOut = new CommunicationOut(socketServerSide, clientOutputStreams, outQueue, statusText);
