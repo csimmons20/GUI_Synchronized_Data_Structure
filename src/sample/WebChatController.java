@@ -35,6 +35,8 @@ public class WebChatController {
     public Button startButton;
     public MediaView UserOneMedia;
     public MediaView UserTwoMedia;
+    private SynchronizedQueue inQueue;
+    private SynchronizedQueue outQueue;
 
     private SynchronizedQueue Queue;
     private Stage stage;

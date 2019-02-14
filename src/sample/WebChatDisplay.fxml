@@ -51,7 +51,7 @@
       <TextField fx:id="IPAddressText" layoutX="393.0" layoutY="17.0" prefHeight="27.0" prefWidth="215.0" />
       <Label layoutX="614.0" layoutY="22.0" text="Port" />
       <TextField fx:id="portText" layoutX="646.0" layoutY="17.0" prefHeight="27.0" prefWidth="83.0" />
-      <Button fx:id="startButton" layoutX="736.0" layoutY="17.0" mnemonicParsing="false" text="Connect" />
+      <Button fx:id="startButton" layoutX="736.0" layoutY="17.0" mnemonicParsing="false" onAction="#startButtonPressed" text="Connect" />
       <TextField fx:id="statusText" layoutX="822.0" layoutY="17.0" prefHeight="27.0" prefWidth="97.0" text="Offline" />
    </children>
 </AnchorPane>
