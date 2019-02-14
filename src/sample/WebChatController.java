@@ -12,6 +12,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -44,12 +45,12 @@ public class WebChatController {
     private boolean serverMode;
     static boolean connected;
 
-    public void initialize(){
+    public void initialize() {
         Queue = new SynchronizedQueue();
         connected = false;
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(Queue,UserOneText,UserOneImage,TheChat, yourNameText);
+        UpdateGUI updater = new UpdateGUI(Queue, UserOneText, UserOneImage, TheChat, yourNameText);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
 
@@ -152,7 +153,7 @@ public class WebChatController {
         File file1 = fileChooser1.showOpenDialog(stage);
 
         //If user chose a media file via FileChooser
-        if(file1 != null) {
+        if (file1 != null) {
             Media UOM = new Media(file1.toURI().toString());
             MediaPlayer UOMP = new MediaPlayer(UOM);
             UOMP.setAutoPlay(true);
@@ -183,7 +184,6 @@ public class WebChatController {
         System.out.println("SendMessage: PUT " + userOneImg);
 
 
-
         String userOneText = "User 1: " + UserOneText.getText();
         UserOneText.setText("");
 
@@ -193,29 +193,5 @@ public class WebChatController {
             }
         }
         System.out.println("SendMessage: PUT " + userOneText);
-    }
-
-
-    public void SendUserTwo() {
-        Image userTwoImg = UserTwoImage.getImage();
-
-        if (userTwoImg != null) {
-            while (!Queue.put(userTwoImg)) {
-                Thread.currentThread().yield();
-            }
-        }
-        System.out.println("SendMessage: PUT " + userTwoImg);
-
-
-
-        String userTwoTxt = "User 2: " + UserTwoText.getText();
-        UserTwoText.setText("");
-
-        if (userTwoTxt != null) {
-            while (!Queue.put(userTwoTxt)) {
-                Thread.currentThread().yield();
-            }
-        }
-        System.out.println("SendMessage: PUT " + userTwoTxt);
     }
 }
