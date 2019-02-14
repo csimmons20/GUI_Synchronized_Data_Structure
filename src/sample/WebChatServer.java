@@ -16,16 +16,16 @@ public class WebChatServer extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load View from xml description
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("TwoWayCommunication.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("WebChatDisplay.fxml"));
         Parent root = loader.load();
 
-        Thread.currentThread().setName("TwoWayCommunicationController MainServer GUI Thread");
+        Thread.currentThread().setName("Messenger");
 
         // Display the scene
         if (multicastMode) {
-            primaryStage.setTitle("TwoWayCommunicationController SERVER Multi-cast");
+            primaryStage.setTitle("Messenger SERVER Multi-cast");
         } else {
-            primaryStage.setTitle("TwoWayCommunicationController SERVER");
+            primaryStage.setTitle("Messenger SERVER");
         }
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

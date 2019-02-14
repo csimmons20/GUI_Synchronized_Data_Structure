@@ -12,13 +12,13 @@ public class WebChatClient extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         // Load View from xml description
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("TwoWayCommunication.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("WebChatDisplay.fxml"));
         Parent root = loader.load();
 
-        Thread.currentThread().setName("TwoWayCommunicationController MainClient GUI Thread");
+        Thread.currentThread().setName("Messenger Client GUI Thread");
 
         // Display the scene
-        primaryStage.setTitle("TwoWayCommunicationController CLIENT");
+        primaryStage.setTitle("MESSENGER CLIENT");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
