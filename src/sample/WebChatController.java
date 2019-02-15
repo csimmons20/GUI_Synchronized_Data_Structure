@@ -47,14 +47,19 @@ public class WebChatController {
 
     public void initialize() {
         Queue = new SynchronizedQueue();
+        inQueue = new SynchronizedQueue();
+        outQueue = new SynchronizedQueue();
         connected = false;
 
         // Create and start the GUI updater thread
         UpdateGUI updater = new UpdateGUI(Queue, UserOneText, UserOneImage, TheChat, yourNameText);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
-
         //GUI Updates text, image, and file to either people.
+    }
+
+    public void setStage(Stage theStage) {
+        stage = theStage;
     }
 
     void setServerMode() {
@@ -133,10 +138,6 @@ public class WebChatController {
         }
     }
 
-    public void setStage(Stage theStage) {
-        stage = theStage;
-    }
-
     public void OpenFile() {
         //Open file and put it into imageview
         final FileChooser fileChooser = new FileChooser();
@@ -158,18 +159,6 @@ public class WebChatController {
             MediaPlayer UOMP = new MediaPlayer(UOM);
             UOMP.setAutoPlay(true);
             UserOneMedia.setMediaPlayer(UOMP);
-        }
-    }
-
-    public void OpenFileTwo() {
-        //create a way to make open file and put it into imageview
-        final FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(stage);
-
-        // If user chose an image file via FileChooser
-        if (file != null) {
-            Image newImage = new Image(file.toURI().toString());
-            UserTwoImage.setImage(newImage);
         }
     }
 
