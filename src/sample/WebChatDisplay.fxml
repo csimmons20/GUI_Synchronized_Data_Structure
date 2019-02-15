@@ -20,7 +20,7 @@
          <image>
             <Image url="@../ina.jpg" />
          </image></ImageView>
-      <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="730.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="UserTwoImage" fitHeight="200.0" fitWidth="200.0" layoutX="730.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../ina.jpg" />
          </image></ImageView>
