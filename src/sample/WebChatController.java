@@ -144,18 +144,22 @@ public class WebChatController {
 
         // If user chose an image file via FileChooser
         if (file != null) {
-            Image newImage = new Image(file.toURI().toString());
-            UserOneImage.setImage(newImage);
+
+            // Check to see if the file is an image
+            if (file.getPath().endsWith(".png") || file.getPath().endsWith(".tiff") || file.getPath().endsWith(".jpeg") ||
+                    file.getPath().endsWith(".gif") || file.getPath().endsWith(".jpg")) {
+
+                Image newImage = new Image(file.toURI().toString());
+                UserOneImage.setImage(newImage);
+            }
         }
+        // Check to see if the file is a media file
+            if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv") || file.getPath().endsWith(".wmv") ||
+                file.getPath().endsWith(".mov") || file.getPath().endsWith(".mp4")) {
 
-        //Open file and put it into mediaview
-        final FileChooser fileChooser1 = new FileChooser();
-        File file1 = fileChooser1.showOpenDialog(stage);
-
-        //If user chose a media file via FileChooser
-        if (file1 != null) {
-            Media UOM = new Media(file1.toURI().toString());
+            Media UOM = new Media(file.toURI().toString());
             MediaPlayer UOMP = new MediaPlayer(UOM);
+            UOMP.setCycleCount(MediaPlayer.INDEFINITE);
             UOMP.setAutoPlay(true);
             UserOneMedia.setMediaPlayer(UOMP);
         }
@@ -168,8 +172,27 @@ public class WebChatController {
             while (!Queue.put(userOneImg)) {
                 Thread.currentThread().yield();
             }
+        } else {
+            String empty = "E.M.P.T.Y";
+            while (!Queue.put(empty)) {
+                Thread.currentThread().yield();
+            }
         }
         System.out.println("SendMessage: PUT " + userOneImg);
+
+        MediaPlayer userOneMed = UserOneMedia.getMediaPlayer();
+
+        if (userOneMed != null) {
+            while (!Queue.put(userOneImg)) {
+                Thread.currentThread().yield();
+            }
+        } else {
+            String empty2 = "E.M.P.T.Y";
+            while (!Queue.put(empty2)) {
+                Thread.currentThread().yield();
+            }
+        }
+        System.out.println("SendMessage: PUT " + userOneMed);
 
 
         String userOneText = "User 1: " + UserOneText.getText();
@@ -181,5 +204,6 @@ public class WebChatController {
             }
         }
         System.out.println("SendMessage: PUT " + userOneText);
+
     }
 }
