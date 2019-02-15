@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -26,6 +28,7 @@ public class WebChatController {
     public ImageView UserOneImage;
     public ImageView UserTwoImage;
     public TextField UserOneText;
+    public TextField UserTwoText;
     public TextField yourNameText;
     public TextField IPAddressText;
     public TextField portText;
@@ -35,25 +38,27 @@ public class WebChatController {
     public Button startButton;
     public MediaView UserOneMedia;
     public MediaView UserTwoMedia;
+
+    private SynchronizedQueue QueueFrom1to2;
+    private SynchronizedQueue QueueFrom2to1;
     private SynchronizedQueue inQueue;
     private SynchronizedQueue outQueue;
 
     private SynchronizedQueue Queue;
     private Stage stage;
 
-    private boolean serverMode;
-    static boolean connected;
-
     public void initialize() {
-        Queue = new SynchronizedQueue();
-        inQueue = new SynchronizedQueue();
-        outQueue = new SynchronizedQueue();
-        connected = false;
+        QueueFrom1to2 = new SynchronizedQueue();
+        QueueFrom2to1 = new SynchronizedQueue();
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(Queue, UserOneText, UserOneImage, UserOneMedia, TheChat, yourNameText);
+        UpdateGUI updater = new UpdateGUI(QueueFrom1to2, UserTwoText, UserTwoImage, TheChat, UserTwoMedia);
+        UpdateGUI updater2 = new UpdateGUI(QueueFrom2to1, UserOneText, UserOneImage, TheChat, UserOneMedia);
         Thread updaterThread = new Thread(updater);
+        Thread updaterThread2 = new Thread(updater2);
         updaterThread.start();
+        updaterThread2.start();
+
         //GUI Updates text, image, and file to either people.
     }
 
@@ -138,23 +143,24 @@ public class WebChatController {
     }
 
     public void OpenFile() {
-        //Open file and put it into imageview
+        //Open file and put it into either ImageView or MediaView
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
-
-        // If user chose an image file via FileChooser
         if (file != null) {
-            if (file.getPath().endsWith(".png") || file.getPath().endsWith(".tif")
-                    || file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif")
-                    || file.getPath().endsWith(".jpg")) {
+
+            //Check to see if file is an image
+            if (file.getPath().endsWith(".png") || file.getPath().endsWith(".tiff") ||
+                    file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif") ||
+                    file.getPath().endsWith(".jpg")) {
+
                 Image newImage = new Image(file.toURI().toString());
                 UserOneImage.setImage(newImage);
             }
 
-            // Check if the file is a media file
-            if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv")
-                    || file.getPath().endsWith(".wmv") || file.getPath().endsWith(".mov")
-                    || file.getPath().endsWith(".mp4")) {
+            //Check to see if file is a media
+            if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv") ||
+                    file.getPath().endsWith(".wmv") || file.getPath().endsWith(".mov") ||
+                    file.getPath().endsWith(".mp4")) {
 
                 Media UOM = new Media(file.toURI().toString());
                 MediaPlayer UOMP = new MediaPlayer(UOM);
@@ -162,50 +168,136 @@ public class WebChatController {
                 UOMP.setAutoPlay(true);
                 UserOneMedia.setMediaPlayer(UOMP);
             }
+
+
         }
+
     }
+
+
+   /* public void OpenFileTwo() {
+        final FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+
+            //Check to see if file is an image
+            if (file.getPath().endsWith(".png") || file.getPath().endsWith(".tiff") ||
+                    file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif")) {
+
+                Image newImage = new Image(file.toURI().toString());
+                UserTwoImage.setImage(newImage);
+            }
+
+            //Check to see if file is a media
+            if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv") ||
+                    file.getPath().endsWith(".wmv") || file.getPath().endsWith(".mov") ||
+                    file.getPath().endsWith(".mp4")) {
+
+                Media UOM = new Media(file.toURI().toString());
+                MediaPlayer UOMP = new MediaPlayer(UOM);
+                UOMP.setAutoPlay(true);
+                UserTwoMedia.setMediaPlayer(UOMP);
+            }
+
+
+        }
+    }*/
+
 
     public void SendUserOne() {
         Image userOneImg = UserOneImage.getImage();
         if (userOneImg != null) {
-            while (!Queue.put(userOneImg)) {
+            while (!QueueFrom1to2.put(userOneImg)) {
                 Thread.currentThread().yield();
             }
         } else {
-            String empty = "E.M.P.T.Y";
-            while (!Queue.put(empty)) {
+            String empty = "E.M.P.T.Y.";
+            while (!QueueFrom1to2.put(empty)) {
                 Thread.currentThread().yield();
             }
+
         }
         System.out.println("SendMessage: PUT " + userOneImg);
 
+
         MediaPlayer userOneMed = UserOneMedia.getMediaPlayer();
         if (userOneMed != null) {
-            while (!Queue.put(userOneMed)) {
+            while (!QueueFrom1to2.put(userOneMed)) {
                 Thread.currentThread().yield();
             }
         } else {
-            String empty = "E.M.P.T.Y";
-            while (!Queue.put(empty)) {
+            String empty1 = "E.M.P.T.Y.";
+            while (!QueueFrom1to2.put(empty1)) {
                 Thread.currentThread().yield();
             }
         }
         System.out.println("SendMessage: PUT " + userOneMed);
 
 
-        String userOneText = "User 1: " + UserOneText.getText();
+        String userOneTxt = "User 1: " + UserOneText.getText();
         UserOneText.setText("");
 
-        if (userOneText != null) {
-            while (!Queue.put(userOneText)) {
+        if (userOneTxt != null) {
+            while (!QueueFrom1to2.put(userOneTxt)) {
                 Thread.currentThread().yield();
             }
+
         } else {
-            String empty = "E.M.P.T.Y";
-            while (!Queue.put(empty)) {
+            String empty2 = "E.M.P.T.Y.";
+            while (!QueueFrom1to2.put(empty2)) {
                 Thread.currentThread().yield();
             }
         }
-        System.out.println("SendMessage: PUT " + userOneText);
+        System.out.println("SendMessage: PUT " + userOneTxt);
+
     }
+
+    /* public void SendUserTwo() {
+        Image userTwoImg = UserTwoImage.getImage();
+        if (userTwoImg != null) {
+            while (!QueueFrom2to1.put(userTwoImg)) {
+                Thread.currentThread().yield();
+            }
+        } else {
+            String empty = "E.M.P.T.Y.";
+            while (!QueueFrom2to1.put(empty)) {
+                Thread.currentThread().yield();
+            }
+
+        }
+        System.out.println("SendMessage: PUT " + userTwoImg);
+
+
+        MediaPlayer userTwoMed = UserTwoMedia.getMediaPlayer();
+        if (userTwoMed != null) {
+            while (!QueueFrom2to1.put(userTwoMed)) {
+                Thread.currentThread().yield();
+            }
+        } else {
+            String empty1 = "E.M.P.T.Y.";
+            while (!QueueFrom2to1.put(empty1)) {
+                Thread.currentThread().yield();
+            }
+        }
+        System.out.println("SendMessage: PUT " + userTwoMed);
+
+
+        String userTwoTxt = "User 2: " + UserTwoText.getText();
+        UserTwoText.setText("");
+
+        if (userTwoTxt != null) {
+            while (!QueueFrom2to1.put(userTwoTxt)) {
+                Thread.currentThread().yield();
+            }
+
+        } else {
+            String empty2 = "E.M.P.T.Y.";
+            while (!QueueFrom2to1.put(empty2)) {
+                Thread.currentThread().yield();
+            }
+        }
+        System.out.println("SendMessage: PUT " + userTwoTxt);
+
+
+    } */
 }

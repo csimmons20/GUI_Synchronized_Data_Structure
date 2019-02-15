@@ -11,20 +11,20 @@ import javafx.scene.media.MediaView;
 
 public class UpdateGUI implements Runnable {
 
-    private SynchronizedQueue Queue;
+    private SynchronizedQueue originalQueue;
     private TextField GUIMessageView;
     private ImageView GUIimageView;
-    private MediaView GUIMediaView;
     private ListView TheChat;
+    private MediaView GUIMediaView;
     private TextField yourNameText;
 
 
-    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, MediaView media, ListView chat, TextField name) {
-        Queue = queue;
+    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat, MediaView media) {
+        originalQueue = queue;
         GUIMessageView = GUIMessage;
         GUIimageView = imageView;
-        GUIMediaView = media;
         TheChat = chat;
+        GUIMediaView = media;
         yourNameText = name;
     }
 
@@ -32,50 +32,57 @@ public class UpdateGUI implements Runnable {
         Thread.currentThread().setName("GUIUpdater Thread");
 
         while (!Thread.interrupted()) {
-            // Ask queue for a image from user 1 to display
-            Object next = Queue.get();
+            // Ask queue for a image from user to display
+
+            Object next = originalQueue.get();
 
             while (next == null) {
                 Thread.currentThread().yield();
-                next = Queue.get();
+                next = originalQueue.get();
             }
 
             System.out.println("UpdateGUI GOT: " + next);
 
-            if (!next.equals("E.M.P.T.Y")) {
-                Image nextImage = (Image) next;
-                // get() has to get image to work with
+            if (!next.equals("E.M.P.T.Y.")) {
+                Image nextImage = (Image)next;
+                // get() has an image to work with
                 GUIimageView.setImage(nextImage);
             }
 
-            // Ask queue for a media from user to display
-            Object forward = Queue.get();
 
-            while (forward == null) {
+            //Ask queue for a media from user to display
+            Object forward = originalQueue.get();
+
+            while (forward == null){
                 Thread.currentThread().yield();
-                forward = Queue.get();
+                forward = originalQueue.get();
             }
-            System.out.println("UpdatedGUI GOT: " + forward);
+            System.out.println("UpdateGUI GOT: " + forward);
 
-            if (!forward.equals("E.M.P.T.Y")) {
-                MediaPlayer nextMedia = (MediaPlayer) forward;
-                // get() has to get media to work with
+            if (!forward.equals("E.M.P.T.Y.")){
+                MediaPlayer nextMedia = (MediaPlayer)forward;
+                //get() have a media to work with
                 GUIMediaView.setMediaPlayer(nextMedia);
             }
 
-            // Ask queue for a message from user 1 to add to chat
-            Object message = Queue.get();
+
+
+            // Ask queue for a message from user to add to chat
+            Object message = originalQueue.get();
 
             while (message == null) {
                 Thread.currentThread().yield();
-                message = Queue.get();
+                message = originalQueue.get();
             }
 
             Object finalMessage = message;
-            if (!finalMessage.equals("E.M.P.T.Y")) {
+            if (!finalMessage.equals("E.M.P.T.Y")){
                 // Update the list view with the text from the bottom text field
                 Platform.runLater(() -> TheChat.getItems().add(new Label((String)finalMessage)));
             }
+
+
+
         }
     }
 }
