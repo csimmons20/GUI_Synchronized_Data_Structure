@@ -26,7 +26,6 @@ public class WebChatController {
     public ImageView UserOneImage;
     public ImageView UserTwoImage;
     public TextField UserOneText;
-    public TextField UserTwoText;
     public TextField yourNameText;
     public TextField IPAddressText;
     public TextField portText;
