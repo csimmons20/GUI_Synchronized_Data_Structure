@@ -51,7 +51,7 @@ public class WebChatController {
         connected = false;
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(Queue, UserOneText, UserOneImage, TheChat, yourNameText);
+        UpdateGUI updater = new UpdateGUI(Queue, UserOneText, UserOneImage, UserOneMedia, TheChat, yourNameText);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
         //GUI Updates text, image, and file to either people.
@@ -144,30 +144,29 @@ public class WebChatController {
 
         // If user chose an image file via FileChooser
         if (file != null) {
-
-            // Check to see if the file is an image
-            if (file.getPath().endsWith(".png") || file.getPath().endsWith(".tiff") || file.getPath().endsWith(".jpeg") ||
-                    file.getPath().endsWith(".gif") || file.getPath().endsWith(".jpg")) {
-
+            if (file.getPath().endsWith(".png") || file.getPath().endsWith(".tif")
+                    || file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif")
+                    || file.getPath().endsWith(".jpg")) {
                 Image newImage = new Image(file.toURI().toString());
                 UserOneImage.setImage(newImage);
             }
-        }
-        // Check to see if the file is a media file
-            if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv") || file.getPath().endsWith(".wmv") ||
-                file.getPath().endsWith(".mov") || file.getPath().endsWith(".mp4")) {
 
-            Media UOM = new Media(file.toURI().toString());
-            MediaPlayer UOMP = new MediaPlayer(UOM);
-            UOMP.setCycleCount(MediaPlayer.INDEFINITE);
-            UOMP.setAutoPlay(true);
-            UserOneMedia.setMediaPlayer(UOMP);
+            // Check if the file is a media file
+            if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv")
+                    || file.getPath().endsWith(".wmv") || file.getPath().endsWith(".mov")
+                    || file.getPath().endsWith(".mp4")) {
+
+                Media UOM = new Media(file.toURI().toString());
+                MediaPlayer UOMP = new MediaPlayer(UOM);
+                UOMP.setCycleCount(MediaPlayer.INDEFINITE);
+                UOMP.setAutoPlay(true);
+                UserOneMedia.setMediaPlayer(UOMP);
+            }
         }
     }
 
     public void SendUserOne() {
         Image userOneImg = UserOneImage.getImage();
-
         if (userOneImg != null) {
             while (!Queue.put(userOneImg)) {
                 Thread.currentThread().yield();
@@ -181,14 +180,13 @@ public class WebChatController {
         System.out.println("SendMessage: PUT " + userOneImg);
 
         MediaPlayer userOneMed = UserOneMedia.getMediaPlayer();
-
         if (userOneMed != null) {
-            while (!Queue.put(userOneImg)) {
+            while (!Queue.put(userOneMed)) {
                 Thread.currentThread().yield();
             }
         } else {
-            String empty2 = "E.M.P.T.Y";
-            while (!Queue.put(empty2)) {
+            String empty = "E.M.P.T.Y";
+            while (!Queue.put(empty)) {
                 Thread.currentThread().yield();
             }
         }
@@ -202,8 +200,12 @@ public class WebChatController {
             while (!Queue.put(userOneText)) {
                 Thread.currentThread().yield();
             }
+        } else {
+            String empty = "E.M.P.T.Y";
+            while (!Queue.put(empty)) {
+                Thread.currentThread().yield();
+            }
         }
         System.out.println("SendMessage: PUT " + userOneText);
-
     }
 }
