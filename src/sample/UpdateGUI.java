@@ -25,7 +25,7 @@ public class UpdateGUI implements Runnable {
         GUIimageView = imageView;
         TheChat = chat;
         GUIMediaView = media;
-        yourNameText = name;
+        //yourNameText = name;
     }
 
     public void run() {
