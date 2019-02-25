@@ -35,7 +35,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField layoutX="83.0" layoutY="17.0" />
+      <TextField fx:id="yourNameText" layoutX="83.0" layoutY="17.0" />
       <Button layoutX="255.0" layoutY="17.0" mnemonicParsing="false" text="Login" />
       <Label layoutX="320.0" layoutY="22.0" text="IP Address" />
       <Label layoutX="101.0" layoutY="72.0" prefHeight="20.0" prefWidth="40.0" text="Sent">

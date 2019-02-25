@@ -26,7 +26,7 @@ public class WebChatController {
 
     public TextField IPAddressText;
     public TextField portText;
-    public Button    startButton;
+    public Button startButton;
     public TextField statusText;
     public TextField yourNameText;
 
@@ -44,7 +44,7 @@ public class WebChatController {
     private SynchronizedQueue getQueue;
 
 
-   private Stage stage;
+    private Stage stage;
     private boolean serverMode;
     static boolean connected;
 
@@ -60,18 +60,20 @@ public class WebChatController {
         updaterThread.start();
     }
 
-    public void setStage(Stage theStage) { stage = theStage; }
+    public void setStage(Stage theStage) {
+        stage = theStage;
+    }
 
 
-    void setServerMode(){
+    void setServerMode() {
         serverMode = true;
         startButton.setText("Start");
         try {
-            //Show IP address
+            // display the computer's IP address
             IPAddressText.setText(InetAddress.getLocalHost().getHostAddress());
         } catch (Exception ex) {
             ex.printStackTrace();
-            statusText.setText("Server start: getLocalHost failed. Exiting....");
+            statusText.setText("Server start: getLocalHost failed. Exiting...");
         }
     }
 
@@ -79,13 +81,14 @@ public class WebChatController {
         serverMode = false;
         startButton.setText("Connect");
         // display the IP address for the local computer
-        IPAddressText.setText("");
+        IPAddressText.setText("127.0.0.1");
     }
 
+
     public void startButtonPressed() {
-        // If we're already connected, start button should be disabled
+        // If connected, start button disabled;
         if (connected) {
-            // don't do anything else; the threads will stop and everything will be cleaned up by them.
+            // don't do anything else
             return;
         }
 
@@ -102,24 +105,25 @@ public class WebChatController {
 
         if (serverMode) {
 
-            // Server: Create a thread for listening for connecting clients
+            //Server: create a thread for listening for connecting clients
             ConnectToNewClients connectToNewClients = new ConnectToNewClients(Integer.parseInt(portText.getText()), putQueue, getQueue, statusText, yourNameText);
             Thread connectThread = new Thread(connectToNewClients);
             connectThread.start();
 
         } else {
 
-            // Client: Connect to the server!
+            //Client: connect to a server
             try {
                 Socket socketClientSide = new Socket(IPAddressText.getText(), Integer.parseInt(portText.getText()));
                 statusText.setText("Connected to server at IP address " + IPAddressText.getText() + " on port " + portText.getText());
 
-                //   Communication TO server FROM client
+
+                //   Thread 1: handles communication TO server FROM client
                 CommunicationOut communicationOut = new CommunicationOut(socketClientSide, new ObjectOutputStream(socketClientSide.getOutputStream()), getQueue, statusText);
                 Thread communicationOutThread = new Thread(communicationOut);
                 communicationOutThread.start();
 
-                //   Communication FROM server TO client
+                //   Thread 2: handles communication FROM server TO client
                 CommunicationIn communicationIn = new CommunicationIn(socketClientSide, new ObjectInputStream(socketClientSide.getInputStream()), putQueue, null, statusText, yourNameText);
                 Thread communicationInThread = new Thread(communicationIn);
                 communicationInThread.start();
@@ -132,6 +136,8 @@ public class WebChatController {
             // We connected!
         }
     }
+
+
 
 
 
@@ -179,6 +185,13 @@ public class WebChatController {
 
 
     public void SendUserOne() {
+
+        Message message = new Message(yourNameText.getText(), UserOneText.getText(), UserOneImage.getImage(), UserOneMedia.getMediaPlayer());
+
+        boolean putSucceeded = getQueue.put(message);
+        while (!putSucceeded){
+        Thread.currentThread().yield();
+        }
         Image userOneImg = UserOneImage.getImage();
         if (userOneImg != null) {
             while (!getQueue.put(userOneImg)) {
@@ -208,7 +221,7 @@ public class WebChatController {
         System.out.println("SendMessage: PUT " + userOneMed);
 
 
-        String userOneTxt = "User 1: " + UserOneText.getText();
+        String userOneTxt = yourNameText + ": " + UserOneText.getText();
         UserOneText.setText("");
 
         if (userOneTxt != null) {
