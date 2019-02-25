@@ -14,7 +14,6 @@ import java.io.Serializable;
 public class Message implements Serializable {
     // Message includes both sender ID and Image being sent
     private String sender;
-    private String type;
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
@@ -22,35 +21,30 @@ public class Message implements Serializable {
     private
     // private transient Media data3;
 
-    Message(String text, String who, Image what, MediaPlayer mediaPlayer) {
+    Message(String who, String text, Image image, MediaPlayer mediaPlayer) {
         sender = who;
-        data2 = what;
+        data1 = text;
+        data2 = image;
+        data3 = mediaPlayer;
     }
 
     String sender() {
         return sender;
     }
 
-    Image data2() {
+    String getData1(){return data1;}
+
+    Image getData2() {
         return data2;
     }
+
+    MediaPlayer getData3(){return data3;}
+
+
 
     public String toString() {
         return "\"" + data2 + "\" from: " + sender;
     }
 
-    private void readObject(ObjectInputStream inStream) throws IOException, ClassNotFoundException {
-        // this reads sender String with default code
-        inStream.defaultReadObject();
-        // this reads data Image using this custom code
-        data2 = SwingFXUtils.toFXImage(ImageIO.read(inStream), null);
-    }
-
-    private void writeObject(ObjectOutputStream outStream) throws IOException {
-        // this writes sender String with default code
-        outStream.defaultWriteObject();
-        // this writes data Image using this custom code
-        ImageIO.write(SwingFXUtils.fromFXImage(data2, null), "png", outStream);
-    }
-
 }
+
