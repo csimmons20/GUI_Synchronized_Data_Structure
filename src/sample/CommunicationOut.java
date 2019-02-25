@@ -35,7 +35,6 @@ public class CommunicationOut implements Runnable {
         statusText = status;
         serverMode = true;
     }
-
     public void run() {
         Thread.currentThread().setName("CommunicationOut Thread");
         System.out.println("CommunicationOut thread running");
