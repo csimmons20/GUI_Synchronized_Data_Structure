@@ -17,8 +17,8 @@ public class Message implements Serializable {
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
-    private  transient MediaPlayer data3;
-    private
+    private transient MediaPlayer data3;
+
     // private transient Media data3;
 
     Message(String who, String text, Image image, MediaPlayer mediaPlayer) {

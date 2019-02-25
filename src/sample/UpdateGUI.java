@@ -11,7 +11,7 @@ import javafx.scene.media.MediaView;
 
 public class UpdateGUI implements Runnable {
 
-    private SynchronizedQueue originalQueue;
+    private SynchronizedQueue inputQueue;
     private TextField GUIMessageView;
     private ImageView GUIimageView;
     private ListView TheChat;
@@ -19,8 +19,8 @@ public class UpdateGUI implements Runnable {
     private TextField yourNameText;
 
 
-    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat, MediaView media) {
-        originalQueue = queue;
+    UpdateGUI(SynchronizedQueue q, TextField GUIMessage, ImageView imageView, ListView chat, MediaView media) {
+        inputQueue = q;
         GUIMessageView = GUIMessage;
         GUIimageView = imageView;
         TheChat = chat;
@@ -34,11 +34,11 @@ public class UpdateGUI implements Runnable {
         while (!Thread.interrupted()) {
             // Ask queue for a image from user to display
 
-            Object next = originalQueue.get();
+            Object next = inputQueue.get();
 
             while (next == null) {
                 Thread.currentThread().yield();
-                next = originalQueue.get();
+                next = inputQueue.get();
             }
 
             System.out.println("UpdateGUI GOT: " + next);
@@ -51,11 +51,11 @@ public class UpdateGUI implements Runnable {
 
 
             //Ask queue for a media from user to display
-            Object forward = originalQueue.get();
+            Object forward = inputQueue.get();
 
             while (forward == null){
                 Thread.currentThread().yield();
-                forward = originalQueue.get();
+                forward = inputQueue.get();
             }
             System.out.println("UpdateGUI GOT: " + forward);
 
@@ -68,11 +68,11 @@ public class UpdateGUI implements Runnable {
 
 
             // Ask queue for a message from user to add to chat
-            Object message = originalQueue.get();
+            Object message = inputQueue.get();
 
             while (message == null) {
                 Thread.currentThread().yield();
-                message = originalQueue.get();
+                message = inputQueue.get();
             }
 
             Object finalMessage = message;
