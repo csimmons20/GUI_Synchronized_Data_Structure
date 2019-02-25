@@ -37,9 +37,6 @@ public class WebChatController {
     public Button UserOneSend;
     public Button UserOneFile;
     public MediaView UserOneMedia;
-
-    private SynchronizedQueue QueueFrom1to2;
-
     private SynchronizedQueue putQueue;
     private SynchronizedQueue getQueue;
 
