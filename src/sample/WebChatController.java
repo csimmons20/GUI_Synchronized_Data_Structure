@@ -37,8 +37,8 @@ public class WebChatController {
     public Button UserOneSend;
     public Button UserOneFile;
     public MediaView UserOneMedia;
-    private SynchronizedQueue putQueue;
-    private SynchronizedQueue getQueue;
+    private SynchronizedQueue inQueue;
+    private SynchronizedQueue outQueue;
 
 
     private Stage stage;
@@ -46,12 +46,12 @@ public class WebChatController {
     static boolean connected;
 
     public void initialize() {
-        putQueue = new SynchronizedQueue();
-        getQueue = new SynchronizedQueue();
+        inQueue = new SynchronizedQueue();
+        outQueue = new SynchronizedQueue();
         connected = false;
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(putQueue, UserOneText, UserOneImage, TheChat, UserOneMedia);
+        UpdateGUI updater = new UpdateGUI(inQueue, UserOneText, UserOneImage, TheChat, UserOneMedia);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
     }
@@ -102,7 +102,7 @@ public class WebChatController {
         if (serverMode) {
 
             //Server: create a thread for listening for connecting clients
-            ConnectToNewClients connectToNewClients = new ConnectToNewClients(Integer.parseInt(portText.getText()), putQueue, getQueue, statusText, yourNameText);
+            ConnectToNewClients connectToNewClients = new ConnectToNewClients(Integer.parseInt(portText.getText()), inQueue, outQueue, statusText, yourNameText);
             Thread connectThread = new Thread(connectToNewClients);
             connectThread.start();
 
@@ -115,12 +115,12 @@ public class WebChatController {
 
 
                 //   Thread 1: handles communication TO server FROM client
-                CommunicationOut communicationOut = new CommunicationOut(socketClientSide, new ObjectOutputStream(socketClientSide.getOutputStream()), getQueue, statusText);
+                CommunicationOut communicationOut = new CommunicationOut(socketClientSide, new ObjectOutputStream(socketClientSide.getOutputStream()), inQueue, statusText);
                 Thread communicationOutThread = new Thread(communicationOut);
                 communicationOutThread.start();
 
                 //   Thread 2: handles communication FROM server TO client
-                CommunicationIn communicationIn = new CommunicationIn(socketClientSide, new ObjectInputStream(socketClientSide.getInputStream()), putQueue, null, statusText, yourNameText);
+                CommunicationIn communicationIn = new CommunicationIn(socketClientSide, new ObjectInputStream(socketClientSide.getInputStream()), outQueue, null, statusText, yourNameText);
                 Thread communicationInThread = new Thread(communicationIn);
                 communicationInThread.start();
 
@@ -184,18 +184,18 @@ public class WebChatController {
 
         Message message = new Message(yourNameText.getText(), UserOneText.getText(), UserOneImage.getImage(), UserOneMedia.getMediaPlayer());
 
-        boolean putSucceeded = getQueue.put(message);
+        boolean putSucceeded = outQueue.put(message);
         while (!putSucceeded){
         Thread.currentThread().yield();
         }
         Image userOneImg = UserOneImage.getImage();
         if (userOneImg != null) {
-            while (!getQueue.put(userOneImg)) {
+            while (!outQueue.put(userOneImg)) {
                 Thread.currentThread().yield();
             }
         } else {
             String empty = "E.M.P.T.Y.";
-            while (!getQueue.put(empty)) {
+            while (!outQueue.put(empty)) {
                 Thread.currentThread().yield();
             }
 
@@ -205,12 +205,12 @@ public class WebChatController {
 
         MediaPlayer userOneMed = UserOneMedia.getMediaPlayer();
         if (userOneMed != null) {
-            while (!getQueue.put(userOneMed)) {
+            while (!outQueue.put(userOneMed)) {
                 Thread.currentThread().yield();
             }
         } else {
             String empty1 = "E.M.P.T.Y.";
-            while (!getQueue.put(empty1)) {
+            while (!outQueue.put(empty1)) {
                 Thread.currentThread().yield();
             }
         }
@@ -221,13 +221,13 @@ public class WebChatController {
         UserOneText.setText("");
 
         if (userOneTxt != null) {
-            while (!getQueue.put(userOneTxt)) {
+            while (!outQueue.put(userOneTxt)) {
                 Thread.currentThread().yield();
             }
 
         } else {
             String empty2 = "E.M.P.T.Y.";
-            while (!getQueue.put(empty2)) {
+            while (!outQueue.put(empty2)) {
                 Thread.currentThread().yield();
             }
         }
