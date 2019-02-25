@@ -46,7 +46,6 @@ public class WebChatController {
     static boolean connected;
 
     public void initialize() {
-        QueueFrom1to2 = new SynchronizedQueue();
         putQueue = new SynchronizedQueue();
         getQueue = new SynchronizedQueue();
         connected = false;
