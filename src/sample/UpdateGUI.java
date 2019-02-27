@@ -11,7 +11,7 @@ import javafx.scene.media.MediaView;
 
 public class UpdateGUI implements Runnable {
 
-    private SynchronizedQueue originalQueue;
+    private SynchronizedQueue inQueue;
     private TextField GUIMessageView;
     private ImageView GUIimageView;
     private ListView TheChat;
@@ -19,19 +19,42 @@ public class UpdateGUI implements Runnable {
     private TextField yourNameText;
 
 
-    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat, MediaView media) {
-        originalQueue = queue;
+    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat, MediaView media, TextField name) {
+        inQueue = queue;
         GUIMessageView = GUIMessage;
         GUIimageView = imageView;
         TheChat = chat;
         GUIMediaView = media;
-        //yourNameText = name;
+        yourNameText = name;
     }
 
     public void run() {
         Thread.currentThread().setName("GUIUpdater Thread");
 
         while (!Thread.interrupted()) {
+            // Try to get a Message from the inputQueue
+            Message message = (Message) inQueue.get();
+            while (message == null) {
+                Thread.currentThread().yield();
+                message = (Message) inQueue.get();
+            }
+            Message finalMessage = message; // needed for Platform.runLater()
+
+            if (!finalMessage.sender().equals(yourNameText.getText())) {
+                // Got a message from another client... prepend the chat with it
+                // Write text
+                if (!(finalMessage.getData1()).equals("")) {
+                    Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " says \"" + finalMessage.getData1())));
+                }
+                // Update picture
+                if (finalMessage.getData2() != null) {
+                    Image nextImage = finalMessage.getData2();
+                    Platform.runLater(() -> GUIimageView.setImage(nextImage));
+                }
+                // Update media
+
+            }
+        /*while (!Thread.interrupted()) {
             // Ask queue for a image from user to display
 
             Object next = originalQueue.get();
@@ -83,6 +106,7 @@ public class UpdateGUI implements Runnable {
 
 
 
+        }*/
         }
     }
 }

@@ -1,13 +1,8 @@
 package sample;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 // Serializable means that objects of this class can be read/written over ObjectStreams
@@ -18,8 +13,7 @@ public class Message implements Serializable {
     private String data1;
     private transient Image data2;
     private  transient MediaPlayer data3;
-    private
-    // private transient Media data3;
+    public// private transient Media data3;
 
     Message(String who, String text, Image image, MediaPlayer mediaPlayer) {
         sender = who;
@@ -43,8 +37,12 @@ public class Message implements Serializable {
 
 
     public String toString() {
-        return "\"" + data2 + "\" from: " + sender;
+        return "\"" + data1 + "\" from: " + sender;
     }
+
+    //public void toImage(){
+    //    System.out.println("\"" + data2 + "\" from: " + sender);
+    //}
 
 }
 
