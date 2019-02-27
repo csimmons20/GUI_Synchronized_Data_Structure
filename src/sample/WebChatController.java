@@ -52,7 +52,7 @@ public class WebChatController {
         connected = false;
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(inQueue, UserOneText, UserOneImage, TheChat, UserOneMedia);
+        UpdateGUI updater = new UpdateGUI(inQueue, UserOneText, UserOneImage, TheChat, UserOneMedia, yourNameText);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
     }
