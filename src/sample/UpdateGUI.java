@@ -41,7 +41,7 @@ public class UpdateGUI implements Runnable {
             Message finalMessage = message; // needed for Platform.runLater()
 
             if (!finalMessage.sender().equals(yourNameText.getText())) {
-                // Got a message from another client... prepend the chat with it
+                // Got a message from another client... prepend the chat with it.
                 // Write text
                 if (!(finalMessage.getData1()).equals("")) {
                     Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " says \"" + finalMessage.getData1())));
