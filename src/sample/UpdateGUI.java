@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -8,6 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class UpdateGUI implements Runnable {
 
@@ -44,20 +50,22 @@ public class UpdateGUI implements Runnable {
                 // Got a message from another client... prepend the chat with it.
                 // Write text
                 if (!(finalMessage.getData1()).equals("")) {
+                    System.out.println("DATA 1 got");
                     Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " says \"" + finalMessage.getData1())));
                 }
                 // Update picture
                 if (finalMessage.getData2() != null) {
+                    System.out.println("DATA 2 got");
                     Image nextImage = finalMessage.getData2();
                     Platform.runLater(() -> GUIimageView.setImage(nextImage));
                 }
                 // Update mediaplayer
                 if (finalMessage.getData3() != null) {
+                    System.out.println("DATA 3 got");
                     MediaPlayer nextMedia = finalMessage.getData3();
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(nextMedia));
 
                 }
-
             }
         /*while (!Thread.interrupted()) {
             // Ask queue for a image from user to display
