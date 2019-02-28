@@ -17,7 +17,7 @@ public class Message implements Serializable {
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
-    private  transient MediaPlayer data3;
+    private   MediaPlayer data3;
     public// private transient Media data3;
 
     Message(String who, String text, Image image, MediaPlayer mediaPlayer) {
@@ -50,7 +50,9 @@ public class Message implements Serializable {
         inStream.defaultReadObject();
         // this reads data Image using this custom code
         data2 = SwingFXUtils.toFXImage(ImageIO.read(inStream), null);
+
     }
+
 
     private void writeObject(ObjectOutputStream outStream) throws IOException {
         // this writes sender String with default code
