@@ -25,9 +25,8 @@ public class UpdateGUI implements Runnable {
     private TextField yourNameText;
 
 
-    UpdateGUI(SynchronizedQueue queue, TextField GUIMessage, ImageView imageView, ListView chat, MediaView media, TextField name) {
+    UpdateGUI(SynchronizedQueue queue, ImageView imageView, ListView chat, MediaView media, TextField name) {
         inQueue = queue;
-        GUIMessageView = GUIMessage;
         GUIimageView = imageView;
         TheChat = chat;
         GUIMediaView = media;

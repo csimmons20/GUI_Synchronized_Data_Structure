@@ -56,7 +56,7 @@ public class Message implements Serializable {
         // this writes sender String with default code
         outStream.defaultWriteObject();
         // this writes data Image using this custom code
-        ImageIO.write(SwingFXUtils.fromFXImage(data2, null), "png" +  "tiff" + "jpeg" + "gif" + "bmp", outStream);
+        ImageIO.write(SwingFXUtils.fromFXImage(data2, null), "png", outStream);
     }
 
 }
