@@ -184,25 +184,14 @@ public class WebChatController {
 
     public void SendUserOne() {
 
-        if (serverMode == true){
-            Message message = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoSend.getImage(), MediatoSend.getMediaPlayer());
+
+        Message message = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoSend.getImage(), MediatoSend.getMediaPlayer());
 
             boolean putSucceeded = outQueue.put(message);
-            while (!putSucceeded){
+            while (!putSucceeded) {
                 Thread.currentThread().yield();
                 putSucceeded = outQueue.put(message);
             }
-            if (serverMode != true){
-                Message message2 = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoRecieve.getImage(), MediatoRecieve.getMediaPlayer());
-
-                boolean putSucceeded2 = outQueue.put(message);
-                while (!putSucceeded2){
-                    Thread.currentThread().yield();
-                    putSucceeded2 = outQueue.put(message);
-                }
-
-            }
-        }
 
 
 
