@@ -31,12 +31,13 @@ public class WebChatController {
     public TextField yourNameText;
 
     public ListView TheChat;
-    public ImageView UserOneImage;
-    public ImageView UserTwoImage;
+    public ImageView ImagetoSend;
+    public ImageView ImagetoRecieve;
     public TextField UserOneText;
     public Button UserOneSend;
     public Button UserOneFile;
-    public MediaView UserOneMedia;
+    public MediaView MediatoSend;
+    public MediaView MediatoRecieve;
 
     private SynchronizedQueue inQueue;
     private SynchronizedQueue outQueue;
@@ -52,7 +53,7 @@ public class WebChatController {
         connected = false;
 
         // Create and start the GUI updater thread
-        UpdateGUI updater = new UpdateGUI(inQueue, UserOneText, UserOneImage, TheChat, UserOneMedia, yourNameText);
+        UpdateGUI updater = new UpdateGUI(inQueue, UserOneText, ImagetoSend, TheChat, MediatoSend, yourNameText);
         Thread updaterThread = new Thread(updater);
         updaterThread.start();
     }
@@ -158,7 +159,7 @@ public class WebChatController {
                     file.getPath().endsWith(".jpg")) {
 
                 Image newImage = new Image(file.toURI().toString());
-                UserOneImage.setImage(newImage);
+                ImagetoSend.setImage(newImage);
             }
 
             //Check to see if the file is a media
@@ -170,7 +171,7 @@ public class WebChatController {
                 MediaPlayer UOMP = new MediaPlayer(UOM);
                 UOMP.setCycleCount(MediaPlayer.INDEFINITE);
                 UOMP.setAutoPlay(true);
-                UserOneMedia.setMediaPlayer(UOMP);
+                MediatoSend.setMediaPlayer(UOMP);
             }
 
 
@@ -183,13 +184,30 @@ public class WebChatController {
 
     public void SendUserOne() {
 
-        Message message = new Message(yourNameText.getText(), UserOneText.getText(), UserOneImage.getImage(), UserOneMedia.getMediaPlayer());
+        if (serverMode == true){
+            Message message = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoSend.getImage(), MediatoSend.getMediaPlayer());
 
-        boolean putSucceeded = outQueue.put(message);
-        while (!putSucceeded){
-        Thread.currentThread().yield();
-            putSucceeded = outQueue.put(message);
+            boolean putSucceeded = outQueue.put(message);
+            while (!putSucceeded){
+                Thread.currentThread().yield();
+                putSucceeded = outQueue.put(message);
+            }
+            if (serverMode != true){
+                Message message2 = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoRecieve.getImage(), MediatoRecieve.getMediaPlayer());
+
+                boolean putSucceeded2 = outQueue.put(message);
+                while (!putSucceeded2){
+                    Thread.currentThread().yield();
+                    putSucceeded2 = outQueue.put(message);
+                }
+
+            }
         }
+
+
+
+        //Clear text after being sent
+        UserOneText.setText("");
 
     }
 

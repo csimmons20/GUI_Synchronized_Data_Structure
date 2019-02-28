@@ -37,12 +37,10 @@ public class Message implements Serializable {
 
 
     public String toString() {
-        return "\"" + data1 + "\" from: " + sender;
+        return "\"" + data1 + "\" image:" + data2 + " video: " + data3 + " from: " + sender;
     }
 
-    //public void toImage(){
-    //    System.out.println("\"" + data2 + "\" from: " + sender);
-    //}
+
 
 }
 
