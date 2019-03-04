@@ -18,10 +18,10 @@ public class Message implements Serializable {
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
-    private Media data3;
+    private MediaPlayer data3;
     public// private transient Media data3;
 
-    Message(String who, String text, Image image, Media mediaPlayer) {
+    Message(String who, String text, Image image, MediaPlayer mediaPlayer) {
         sender = who;
         data1 = text;
         data2 = image;
@@ -38,7 +38,9 @@ public class Message implements Serializable {
         return data2;
     }
 
-    MediaPlayer getData3(){return data3;}
+    MediaPlayer getData3()  {
+        return data3;
+    }
 
 
 
