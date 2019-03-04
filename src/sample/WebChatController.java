@@ -194,7 +194,6 @@ public class WebChatController {
             }
 
 
-
         //Clear text after being sent
         UserOneText.setText("");
 

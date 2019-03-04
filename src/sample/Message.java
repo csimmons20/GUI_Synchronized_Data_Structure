@@ -2,6 +2,7 @@ package sample;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import javax.imageio.ImageIO;
@@ -17,10 +18,10 @@ public class Message implements Serializable {
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
-    private   MediaPlayer data3;
+    private Media data3;
     public// private transient Media data3;
 
-    Message(String who, String text, Image image, MediaPlayer mediaPlayer) {
+    Message(String who, String text, Image image, Media mediaPlayer) {
         sender = who;
         data1 = text;
         data2 = image;
@@ -60,6 +61,5 @@ public class Message implements Serializable {
         // this writes data Image using this custom code
         ImageIO.write(SwingFXUtils.fromFXImage(data2, null), "png", outStream);
     }
-
 }
 
