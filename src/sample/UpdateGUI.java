@@ -53,12 +53,12 @@ public class UpdateGUI implements Runnable {
                     Image nextImage = finalMessage.getData2();
                     Platform.runLater(() -> GUIimageView.setImage(nextImage));
                 }
-                // Update mediaplayer
+                // Update Media
                 if (finalMessage.getData3() != null) {
                     System.out.println("DATA 3 got" + finalMessage.getData3());
-                    //Media nextMedia = finalMessage.getData3();
-                    //MediaPlayer mp = new MediaPlayer(nextMedia);
-                    //Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
+                    Media nextMedia = new Media(finalMessage.getData3().toURI().toString());
+                    MediaPlayer mp = new MediaPlayer(nextMedia);
+                    Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
 
                 }
             }

@@ -21,7 +21,7 @@ public class ConnectToNewClients implements Runnable {
     // When a new client's connection is accepted:
     //    1. a CommunicationIn thread is created to read data from that client (via inQueue)
     //    2. a CommunicationOut thread is created to write data to that client (via outQueue)
-    //    3. (if multi-cast): collect outputStreams together to outQueue writes data to ALL clients i
+    //    3. (if multi-cast): collect outputStreams together to outQueue writes data to ALL clients
 
     ConnectToNewClients(int port, SynchronizedQueue inQ, SynchronizedQueue outQ, TextField status, TextField name) {
         connectionPort = port;
