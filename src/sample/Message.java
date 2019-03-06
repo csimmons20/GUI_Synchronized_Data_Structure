@@ -2,13 +2,13 @@ package sample;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.net.URI;
 
 // Serializable means that objects of this class can be read/written over ObjectStreams
 public class Message implements Serializable {
@@ -17,14 +17,13 @@ public class Message implements Serializable {
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
-    private   MediaPlayer data3;
-    public// private transient Media data3;
+    private File data3;
 
-    Message(String who, String text, Image image, MediaPlayer mediaPlayer) {
+    Message(String who, String text, Image image, File file) {
         sender = who;
         data1 = text;
         data2 = image;
-        data3 = mediaPlayer;
+        data3 = file;
     }
 
     String sender() {
@@ -37,7 +36,7 @@ public class Message implements Serializable {
         return data2;
     }
 
-    MediaPlayer getData3(){return data3;}
+    File getData3(){return data3;}
 
 
 

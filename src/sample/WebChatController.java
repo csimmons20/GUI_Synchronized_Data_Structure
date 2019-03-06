@@ -42,6 +42,7 @@ public class WebChatController {
     private SynchronizedQueue inQueue;
     private SynchronizedQueue outQueue;
 
+    private File fileToSend;
 
     private Stage stage;
     private boolean serverMode;
@@ -167,6 +168,7 @@ public class WebChatController {
                     file.getPath().endsWith(".wmv") || file.getPath().endsWith(".mov") ||
                     file.getPath().endsWith(".mp4")) {
 
+                fileToSend = file;
                 Media UOM = new Media(file.toURI().toString());
                 MediaPlayer UOMP = new MediaPlayer(UOM);
                 UOMP.setCycleCount(MediaPlayer.INDEFINITE);
@@ -185,7 +187,7 @@ public class WebChatController {
     public void SendUserOne() {
 
 
-        Message message = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoSend.getImage(), MediatoSend.getMediaPlayer());
+        Message message = new Message(yourNameText.getText(), UserOneText.getText(), ImagetoSend.getImage(), fileToSend);
 
             boolean putSucceeded = outQueue.put(message);
             while (!putSucceeded) {

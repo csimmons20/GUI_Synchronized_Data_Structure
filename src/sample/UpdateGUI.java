@@ -1,19 +1,14 @@
 package sample;
 
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class UpdateGUI implements Runnable {
 
@@ -60,9 +55,10 @@ public class UpdateGUI implements Runnable {
                 }
                 // Update mediaplayer
                 if (finalMessage.getData3() != null) {
-                    System.out.println("DATA 3 got");
-                    MediaPlayer nextMedia = finalMessage.getData3();
-                    Platform.runLater(() -> GUIMediaView.setMediaPlayer(nextMedia));
+                    System.out.println("DATA 3 got" + finalMessage.getData3());
+                    //Media nextMedia = finalMessage.getData3();
+                    //MediaPlayer mp = new MediaPlayer(nextMedia);
+                    //Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
 
                 }
             }
