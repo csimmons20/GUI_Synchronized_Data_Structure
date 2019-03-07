@@ -17,13 +17,23 @@ public class Message implements Serializable {
     // Image is transient means that we have to provide our own code to read/write object
     private String data1;
     private transient Image data2;
-    private File data3;
+    private byte[] data3;
+    private File mediaFile;
 
     Message(String who, String text, Image image, File file) {
         sender = who;
         data1 = text;
         data2 = image;
-        data3 = file;
+        mediaFile = file;
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            long byteLength = file.length(); // byte count of the file-content
+            data3 = new byte[(int) byteLength];
+            fileInputStream.read(data3, 0, (int) byteLength);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     String sender() {
@@ -36,9 +46,11 @@ public class Message implements Serializable {
         return data2;
     }
 
-    File getData3(){return data3;}
+    byte[] getData3(){return data3;}
 
-
+    File getMediaFile() {
+        return mediaFile;
+    }
 
     public String toString() {
         return "\"" + data1 + "\" image:" + data2 + " video: " + data3 + " from: " + sender;
@@ -50,6 +62,17 @@ public class Message implements Serializable {
         // this reads data Image using this custom code
         data2 = SwingFXUtils.toFXImage(ImageIO.read(inStream), null);
 
+        DataInputStream dIn = new DataInputStream(inStream);
+        int length = dIn.readInt();                    // read length of incoming file
+        if (length>0) {
+            data3 = new byte[length];
+            dIn.readFully(data3, 0, data3.length); // read the file
+        }
+        // write the byte[] to temporary file
+        mediaFile = File.createTempFile("TempMedia", "csal", null);
+        FileOutputStream fos = new FileOutputStream(mediaFile);
+        fos.write(data3);
+        fos.close();
     }
 
 
@@ -58,6 +81,11 @@ public class Message implements Serializable {
         outStream.defaultWriteObject();
         // this writes data Image using this custom code
         ImageIO.write(SwingFXUtils.fromFXImage(data2, null), "png", outStream);
+        // this writes File bytes using custom code
+        DataOutputStream dOut = new DataOutputStream(outStream);
+        dOut.writeInt(data3.length); // write length of the file
+        dOut.write(data3);           // write the file bytes
+        dOut.close();
     }
 
 }

@@ -56,65 +56,13 @@ public class UpdateGUI implements Runnable {
                 // Update Media
                 if (finalMessage.getData3() != null) {
                     System.out.println("DATA 3 got" + finalMessage.getData3());
-                    Media nextMedia = new Media(finalMessage.getData3().toURI().toString());
+                    Media nextMedia = new Media(finalMessage.getMediaFile().toURI().toString());
                     MediaPlayer mp = new MediaPlayer(nextMedia);
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
 
                 }
             }
-        /*while (!Thread.interrupted()) {
-            // Ask queue for a image from user to display
 
-            Object next = originalQueue.get();
-
-            while (next == null) {
-                Thread.currentThread().yield();
-                next = originalQueue.get();
-            }
-
-            System.out.println("UpdateGUI GOT: " + next);
-
-            if (!next.equals("E.M.P.T.Y.")) {
-                Image nextImage = (Image)next;
-                // get() has an image to work with
-                GUIimageView.setImage(nextImage);
-            }
-
-
-            //Ask queue for a media from user to display
-            Object forward = originalQueue.get();
-
-            while (forward == null){
-                Thread.currentThread().yield();
-                forward = originalQueue.get();
-            }
-            System.out.println("UpdateGUI GOT: " + forward);
-
-            if (!forward.equals("E.M.P.T.Y.")){
-                MediaPlayer nextMedia = (MediaPlayer)forward;
-                //get() have a media to work with
-                GUIMediaView.setMediaPlayer(nextMedia);
-            }
-
-
-
-            // Ask queue for a message from user to add to chat
-            Object message = originalQueue.get();
-
-            while (message == null) {
-                Thread.currentThread().yield();
-                message = originalQueue.get();
-            }
-
-            Object finalMessage = message;
-            if (!finalMessage.equals("E.M.P.T.Y")){
-                // Update the list view with the text from the bottom text field
-                Platform.runLater(() -> TheChat.getItems().add(new Label((String)finalMessage)));
-            }
-
-
-
-        }*/
         }
     }
 }
