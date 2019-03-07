@@ -63,7 +63,7 @@ public class Message implements Serializable {
         data2 = SwingFXUtils.toFXImage(ImageIO.read(inStream), null);
 
         DataInputStream dIn = new DataInputStream(inStream);
-        int length = dIn.readInt();                    // read length of incoming file
+        int length = dIn.readInt();                    // read length of incoming files
         if (length>0) {
             data3 = new byte[length];
             dIn.readFully(data3, 0, data3.length); // read the file
