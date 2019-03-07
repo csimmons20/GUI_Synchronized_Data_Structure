@@ -38,8 +38,6 @@ public class Message implements Serializable {
 
     File getData3(){return data3;}
 
-
-
     public String toString() {
         return "\"" + data1 + "\" image:" + data2 + " video: " + data3 + " from: " + sender;
     }
@@ -49,7 +47,6 @@ public class Message implements Serializable {
         inStream.defaultReadObject();
         // this reads data Image using this custom code
         data2 = SwingFXUtils.toFXImage(ImageIO.read(inStream), null);
-
     }
 
 
