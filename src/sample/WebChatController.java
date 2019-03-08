@@ -140,14 +140,6 @@ public class WebChatController {
 
 
 
-
-
-
-
-
-
-
-
     public void OpenFile() {
         //Open file and put it into either ImageView or MediaView
         final FileChooser fileChooser = new FileChooser();

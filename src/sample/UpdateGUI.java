@@ -58,6 +58,7 @@ public class UpdateGUI implements Runnable {
                     System.out.println("DATA 3 got" + finalMessage.getData3());
                     Media nextMedia = new Media(finalMessage.getMediaFile().toURI().toString());
                     MediaPlayer mp = new MediaPlayer(nextMedia);
+
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
 
                 }
