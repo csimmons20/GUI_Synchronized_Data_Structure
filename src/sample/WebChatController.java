@@ -166,7 +166,7 @@ public class WebChatController {
             //Check to see if the file is a media
             if (file.getPath().endsWith(".avi") || file.getPath().endsWith(".flv") ||
                     file.getPath().endsWith(".wmv") || file.getPath().endsWith(".mov") ||
-                    file.getPath().endsWith(".mp4")) {
+                    file.getPath().endsWith(".mp4") || file.getPath().endsWith(".mpeg")) {
 
                 fileToSend = file;
                 Media UOM = new Media(file.toURI().toString());

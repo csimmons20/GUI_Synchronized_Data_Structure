@@ -67,12 +67,14 @@ public class Message implements Serializable {
         if (length>0) {
             data3 = new byte[length];
             dIn.readFully(data3, 0, data3.length); // read the file
+
+            // write the byte[] to temporary file
+            mediaFile = File.createTempFile("TempMedia", "csal", null);
+            FileOutputStream fos = new FileOutputStream(mediaFile);
+            fos.write(data3);
+            fos.close();
         }
-        // write the byte[] to temporary file
-        mediaFile = File.createTempFile("TempMedia", "csal", null);
-        FileOutputStream fos = new FileOutputStream(mediaFile);
-        fos.write(data3);
-        fos.close();
+
 
         // this reads data Image using this custom code
         data2 = SwingFXUtils.toFXImage(ImageIO.read(inStream), null);
