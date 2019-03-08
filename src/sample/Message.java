@@ -26,13 +26,15 @@ public class Message implements Serializable {
         data2 = image;
         mediaFile = file;
 
-        try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            long byteLength = file.length(); // byte count of the file-content
-            data3 = new byte[(int) byteLength];
-            fileInputStream.read(data3, 0, (int) byteLength);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (mediaFile != null   ) {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                long byteLength = file.length(); // byte count of the file-content
+                data3 = new byte[(int) byteLength];
+                fileInputStream.read(data3, 0, (int) byteLength);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -84,7 +86,9 @@ public class Message implements Serializable {
         // this writes File bytes using custom code
         DataOutputStream dOut = new DataOutputStream(outStream);
         dOut.writeInt(data3.length); // write length of the file
-        dOut.write(data3);           // write the file bytes
+        if (data3.length > 0) {
+            dOut.write(data3);           // write the file bytes
+        }
         dOut.close();
     }
 
