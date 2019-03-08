@@ -85,9 +85,13 @@ public class Message implements Serializable {
         ImageIO.write(SwingFXUtils.fromFXImage(data2, null), "png", outStream);
         // this writes File bytes using custom code
         DataOutputStream dOut = new DataOutputStream(outStream);
-        dOut.writeInt(data3.length); // write length of the file
-        if (data3.length > 0) {
-            dOut.write(data3);           // write the file bytes
+        if (data3 == null) {
+            dOut.writeInt(0); // write length of the file
+        } else {
+            dOut.writeInt(data3.length); // write length of the file
+            if (data3.length > 0) {
+                dOut.write(data3);           // write the file bytes
+            }
         }
         dOut.close();
     }
