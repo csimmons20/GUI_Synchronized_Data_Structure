@@ -45,7 +45,7 @@ public class UpdateGUI implements Runnable {
                 // Write text
                 if (!(finalMessage.getData1()).equals("")) {
                     System.out.println("DATA 1 got");
-                    Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " says \"" + finalMessage.getData1() + ".\"")));
+                    Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " says \"" + finalMessage.getData1() + "\"")));
                 }
                 // Update picture
                 if (finalMessage.getData2() != null) {
