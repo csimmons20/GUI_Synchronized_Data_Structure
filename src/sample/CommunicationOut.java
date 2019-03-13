@@ -39,6 +39,7 @@ public class CommunicationOut implements Runnable {
     public void run() {
         Thread.currentThread().setName("CommunicationOut Thread");
         System.out.println("CommunicationOut thread running");
+        statusText.setEditable(false);
 
         try {
             while (WebChatController.connected && !Thread.interrupted()) {

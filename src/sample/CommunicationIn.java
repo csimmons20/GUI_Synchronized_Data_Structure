@@ -38,6 +38,7 @@ public class CommunicationIn implements Runnable {
     public void run() {
         Thread.currentThread().setName("CommunicationIn Thread");
         System.out.println("CommunicationIn thread running");
+        statusText.setEditable(false);
 
         try {
 
