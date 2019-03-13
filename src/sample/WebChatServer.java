@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class WebChatServer extends Application {
     private WebChatController myController;
     // Change multicastMode to enable multi-cast
-    static boolean multicastMode = false;
+    static boolean multicastMode = true;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
