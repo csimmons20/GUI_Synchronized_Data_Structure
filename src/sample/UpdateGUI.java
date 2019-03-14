@@ -45,13 +45,15 @@ public class UpdateGUI implements Runnable {
             }
             Message finalMessage = message; // needed for Platform.runLater()
 
+            // Got a message from another client... prepend the chat with it.
+            // Write text
+            if (!(finalMessage.getData1()).equals("")) {
+                System.out.println("DATA 1 got");
+                Platform.runLater(() -> TheChat.getItems().add(0, new Label("[" + time + "] " + finalMessage.sender() + " says \"" + finalMessage.getData1() + "\"")));
+            }
+
             if (!finalMessage.sender().equals(yourNameText.getText())) {
-                // Got a message from another client... prepend the chat with it.
-                // Write text
-                if (!(finalMessage.getData1()).equals("")) {
-                    System.out.println("DATA 1 got");
-                    Platform.runLater(() -> TheChat.getItems().add(0, new Label("[" + time + "] " + finalMessage.sender() + " says \"" + finalMessage.getData1() + "\"")));
-                }
+
                 // Update picture
                 if (finalMessage.getData2() != null) {
                     System.out.println("DATA 2 got");
