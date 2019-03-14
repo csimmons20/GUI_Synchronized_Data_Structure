@@ -34,6 +34,7 @@ public class UpdateGUI implements Runnable {
         Thread.currentThread().setName("GUIUpdater Thread");
         while (!Thread.interrupted()) {
 
+            // Set time
             time = LocalTime.now();
 
             // Try to get a Message from the inputQueue
