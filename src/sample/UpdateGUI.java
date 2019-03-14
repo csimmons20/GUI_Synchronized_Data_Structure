@@ -52,6 +52,7 @@ public class UpdateGUI implements Runnable {
                     System.out.println("DATA 2 got");
                     Image nextImage = finalMessage.getData2();
                     Platform.runLater(() -> GUIimageView.setImage(nextImage));
+                    Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " sent a picture \"")));
                 }
                 // Update Media
                 if (finalMessage.getData3() != null) {
@@ -61,6 +62,7 @@ public class UpdateGUI implements Runnable {
                     mp.setCycleCount(MediaPlayer.INDEFINITE);
                     mp.setAutoPlay(true);
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
+                    Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " sent a video \"")));
 
                 }
             }
