@@ -1,10 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -38,6 +35,7 @@ public class WebChatController {
     public Button UserOneFile;
     public MediaView MediatoSend;
     public MediaView MediatoRecieve;
+    public ToggleButton PausePlayButton;
 
     private SynchronizedQueue inQueue;
     private SynchronizedQueue outQueue;
@@ -166,14 +164,15 @@ public class WebChatController {
                 UOMP.setCycleCount(MediaPlayer.INDEFINITE);
                 UOMP.setAutoPlay(true);
                 MediatoSend.setMediaPlayer(UOMP);
+
+
+
             }
 
 
         }
 
     }
-
-
 
 
     public void SendUserOne() {
@@ -192,5 +191,13 @@ public class WebChatController {
         UserOneText.setText("");
 
     }
+
+    private void stopMediaPlayer() {
+        //MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
+        //f (mediaPlayer != null) {
+            //mediaPlayer.pause();
+       // }
+    }
+
 
 }
