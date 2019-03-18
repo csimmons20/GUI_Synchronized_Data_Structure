@@ -192,12 +192,6 @@ public class WebChatController {
 
     }
 
-    private void stopMediaPlayer() {
-        //MediaPlayer mediaPlayer = mediaView.getMediaPlayer();
-        //f (mediaPlayer != null) {
-            //mediaPlayer.pause();
-       // }
-    }
 
 
 }
