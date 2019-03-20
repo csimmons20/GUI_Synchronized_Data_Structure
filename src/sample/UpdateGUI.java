@@ -22,7 +22,6 @@ public class UpdateGUI implements Runnable {
     public MediaPlayer mp;
     private LocalTime time;
 
-
     UpdateGUI(SynchronizedQueue queue, ImageView imageView, ListView chat, MediaView media, TextField name) {
         inQueue = queue;
         GUIimageView = imageView;
