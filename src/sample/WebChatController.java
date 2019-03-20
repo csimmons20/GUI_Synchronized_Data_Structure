@@ -36,8 +36,11 @@ public class WebChatController {
     public MediaView MediatoSend;
     public MediaView MediatoRecieve;
     public Button PlayButton;
+    public Button PlayButton2;
     public Button PauseButton;
-    public MediaPlayer UOMP;
+    public Button PauseButton2;
+    public MediaPlayer UOMP1;
+    public MediaPlayer UOMP2;
 
     private SynchronizedQueue inQueue;
     private SynchronizedQueue outQueue;
@@ -162,10 +165,10 @@ public class WebChatController {
 
                 fileToSend = file;
                 Media UOM = new Media(file.toURI().toString());
-                UOMP = new MediaPlayer(UOM);
-                UOMP.setCycleCount(MediaPlayer.INDEFINITE);
+                UOMP1 = new MediaPlayer(UOM);
+                UOMP1.setCycleCount(MediaPlayer.INDEFINITE);
                // UOMP.setAutoPlay(true);
-                MediatoSend.setMediaPlayer(UOMP);
+                MediatoSend.setMediaPlayer(UOMP1);
 
 
 
@@ -177,11 +180,27 @@ public class WebChatController {
     }
 
     public void play(ActionEvent event) {
-        UOMP.play();
+        UOMP1.play();
     }
 
     public void pause(ActionEvent event) {
-        UOMP.pause();
+        UOMP1.pause();
+    }
+
+    public void setMediaPlayer2(MediaPlayer mp) {
+        UOMP2 = mp;
+    }
+
+    public void play2(ActionEvent event) {
+        if (MediatoRecieve != null) {
+            UOMP2.play();
+        }
+    }
+
+    public void pause2(ActionEvent event) {
+        if (MediatoRecieve != null){
+            UOMP2.pause();
+        }
     }
 
 

@@ -54,5 +54,7 @@
       <TextField fx:id="statusText" disable="true" layoutX="766.0" layoutY="17.0" prefHeight="27.0" prefWidth="153.0" text="Offline" />
       <Button fx:id="PlayButton" layoutX="30.0" layoutY="526.0" mnemonicParsing="false" onAction="#play" text="Play" />
       <Button fx:id="PauseButton" layoutX="137.0" layoutY="526.0" mnemonicParsing="false" onAction="#pause" text="Pause" />
+      <Button fx:id="PlayButton2" layoutX="737.0" layoutY="526.0" mnemonicParsing="false" onAction="#play2" text="Play" />
+      <Button fx:id="PauseButton2" layoutX="852.0" layoutY="526.0" mnemonicParsing="false" onAction="#pause2" text="Pause" />
    </children>
 </AnchorPane>

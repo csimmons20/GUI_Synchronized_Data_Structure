@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -17,6 +18,7 @@ public class UpdateGUI implements Runnable {
     private ListView TheChat;
     private MediaView GUIMediaView;
     private TextField yourNameText;
+    public MediaPlayer mp;
 
 
     UpdateGUI(SynchronizedQueue queue, ImageView imageView, ListView chat, MediaView media, TextField name) {
@@ -58,13 +60,16 @@ public class UpdateGUI implements Runnable {
                 if (finalMessage.getData3() != null) {
                     System.out.println("DATA 3 got" + finalMessage.getData3());
                     Media nextMedia = new Media(finalMessage.getMediaFile().toURI().toString());
-                    MediaPlayer mp = new MediaPlayer(nextMedia);
+                    mp = new MediaPlayer(nextMedia);
                     mp.setCycleCount(MediaPlayer.INDEFINITE);
                     mp.setAutoPlay(true);
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
                     Platform.runLater(() -> TheChat.getItems().add(0, new Label("Messenger: " + finalMessage.sender() + " sent a video.")));
 
                 }
+
+
+
             }
 
         }
