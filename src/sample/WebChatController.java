@@ -169,14 +169,9 @@ public class WebChatController {
                 UOMP1.setCycleCount(MediaPlayer.INDEFINITE);
                // UOMP.setAutoPlay(true);
                 MediatoSend.setMediaPlayer(UOMP1);
-
-
-
+                setMediaPlayer2(UOMP1);
             }
-
-
         }
-
     }
 
     public void play(ActionEvent event) {

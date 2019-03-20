@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import java.time.LocalTime;
 
 public class UpdateGUI implements Runnable {
 
@@ -19,6 +20,7 @@ public class UpdateGUI implements Runnable {
     private MediaView GUIMediaView;
     private TextField yourNameText;
     public MediaPlayer mp;
+    private LocalTime time;
 
 
     UpdateGUI(SynchronizedQueue queue, ImageView imageView, ListView chat, MediaView media, TextField name) {
@@ -33,6 +35,10 @@ public class UpdateGUI implements Runnable {
         Thread.currentThread().setName("GUIUpdater Thread");
 
         while (!Thread.interrupted()) {
+
+            // Try to create time
+            time = LocalTime.now();
+
             // Try to get a Message from the inputQueue
             Message message = (Message) inQueue.get();
             while (message == null) {
@@ -45,7 +51,7 @@ public class UpdateGUI implements Runnable {
             // Write text
             if (!(finalMessage.getData1()).equals("")) {
                 System.out.println("DATA 1 got");
-                Platform.runLater(() -> TheChat.getItems().add(0, new Label(finalMessage.sender() + " says \"" + finalMessage.getData1() + "\"")));
+                Platform.runLater(() -> TheChat.getItems().add(0, new Label("[" + time + "] " + finalMessage.sender() + " says \"" + finalMessage.getData1() + "\"")));
             }
 
             if (!finalMessage.sender().equals(yourNameText.getText())) {
@@ -54,7 +60,7 @@ public class UpdateGUI implements Runnable {
                     System.out.println("DATA 2 got");
                     Image nextImage = finalMessage.getData2();
                     Platform.runLater(() -> GUIimageView.setImage(nextImage));
-                    Platform.runLater(() -> TheChat.getItems().add(0, new Label("Messenger: " + finalMessage.sender() + " sent a picture.")));
+                    Platform.runLater(() -> TheChat.getItems().add(0, new Label("[" + time + "] " + "Messenger: " + finalMessage.sender() + " sent a picture.")));
                 }
                 // Update Media
                 if (finalMessage.getData3() != null) {
@@ -64,14 +70,10 @@ public class UpdateGUI implements Runnable {
                     mp.setCycleCount(MediaPlayer.INDEFINITE);
                     //mp.setAutoPlay(true);
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
-                    Platform.runLater(() -> TheChat.getItems().add(0, new Label("Messenger: " + finalMessage.sender() + " sent a video.")));
+                    Platform.runLater(() -> TheChat.getItems().add(0, new Label("[" + time + "] " + "Messenger: " + finalMessage.sender() + " sent a video.")));
 
                 }
-
-
-
             }
-
         }
     }
 }
