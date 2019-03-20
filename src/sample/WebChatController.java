@@ -187,19 +187,18 @@ public class WebChatController {
         UOMP1.pause();
     }
 
-    public void setMediaPlayer2(MediaPlayer mp) {
-        UOMP2 = mp;
-    }
 
     public void play2(ActionEvent event) {
-        if (MediatoRecieve != null) {
-            UOMP2.play();
+        if (MediatoRecieve.getMediaPlayer().getMedia() != null){
+            //setMediaPlayer2(UOMP2);
+            MediatoRecieve.getMediaPlayer().play();
         }
     }
 
     public void pause2(ActionEvent event) {
-        if (MediatoRecieve != null){
-            UOMP2.pause();
+        if (MediatoRecieve.getMediaPlayer().getMedia() != null){
+            //setMediaPlayer2(UOMP2);
+            MediatoRecieve.getMediaPlayer().pause();
         }
     }
 

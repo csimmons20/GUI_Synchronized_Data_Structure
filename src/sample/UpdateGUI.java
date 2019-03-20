@@ -62,7 +62,7 @@ public class UpdateGUI implements Runnable {
                     Media nextMedia = new Media(finalMessage.getMediaFile().toURI().toString());
                     mp = new MediaPlayer(nextMedia);
                     mp.setCycleCount(MediaPlayer.INDEFINITE);
-                    mp.setAutoPlay(true);
+                    //mp.setAutoPlay(true);
                     Platform.runLater(() -> GUIMediaView.setMediaPlayer(mp));
                     Platform.runLater(() -> TheChat.getItems().add(0, new Label("Messenger: " + finalMessage.sender() + " sent a video.")));
 
