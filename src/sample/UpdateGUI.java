@@ -11,6 +11,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class UpdateGUI implements Runnable {
 
@@ -36,7 +38,9 @@ public class UpdateGUI implements Runnable {
         while (!Thread.interrupted()) {
 
             // Try to create time
-            time = LocalTime.now();
+           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss", Locale.US);
+            time = LocalTime.now().withNano(0);
+
 
             // Try to get a Message from the inputQueue
             Message message = (Message) inQueue.get();
