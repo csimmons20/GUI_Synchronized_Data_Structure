@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -38,7 +41,12 @@ public class UpdateGUI implements Runnable {
         while (!Thread.interrupted()) {
 
             // Try to create time
-            time = LocalTime.now().withNano(0);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            time = LocalTime.parse(LocalTime.now().format(dtf));
+
+            //Format formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+            //time = LocalTime.now();
+
 
 
             // Try to get a Message from the inputQueue
