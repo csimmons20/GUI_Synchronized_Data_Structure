@@ -38,7 +38,6 @@ public class UpdateGUI implements Runnable {
         while (!Thread.interrupted()) {
 
             // Try to create time
-           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss", Locale.US);
             time = LocalTime.now().withNano(0);
 
 
