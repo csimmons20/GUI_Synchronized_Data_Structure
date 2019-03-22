@@ -13,6 +13,7 @@ import javafx.scene.media.MediaView;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -41,11 +42,8 @@ public class UpdateGUI implements Runnable {
         while (!Thread.interrupted()) {
 
             // Try to create time
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm");
             time = LocalTime.parse(LocalTime.now().format(dtf));
-
-            //Format formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-            //time = LocalTime.now();
 
 
 
