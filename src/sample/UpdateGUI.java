@@ -14,6 +14,7 @@ import javafx.scene.media.MediaView;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -26,7 +27,6 @@ public class UpdateGUI implements Runnable {
     private MediaView GUIMediaView;
     private TextField yourNameText;
     public MediaPlayer mp;
-    private LocalTime time;
 
     UpdateGUI(SynchronizedQueue queue, ImageView imageView, ListView chat, MediaView media, TextField name) {
         inQueue = queue;
@@ -41,9 +41,6 @@ public class UpdateGUI implements Runnable {
 
         while (!Thread.interrupted()) {
 
-            // Try to create time
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm");
-            time = LocalTime.parse(LocalTime.now().format(dtf));
 
 
 
@@ -54,6 +51,10 @@ public class UpdateGUI implements Runnable {
                 message = (Message) inQueue.get();
             }
             Message finalMessage = message; // needed for Platform.runLater()
+
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE, d MMM yyyy  hh:mm aa");
+            String time = dateTime.format(dtf);
 
             // Got a message from another client... prepend the chat with it.
             // Write text
