@@ -53,7 +53,7 @@ public class UpdateGUI implements Runnable {
             Message finalMessage = message; // needed for Platform.runLater()
 
             LocalDateTime dateTime = LocalDateTime.now();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE, d MMM yyyy  hh:mm aa");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE, d MMM yyyy  hh:mm a");
             String time = dateTime.format(dtf);
 
             // Got a message from another client... prepend the chat with it.
